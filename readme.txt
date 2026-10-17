@@ -5,7 +5,7 @@ Tags: password reset, bulk actions, user management, security
 Requires at least: 6.8.3
 Tested up to: 6.9
 Stable tag: 3.3.0
-Requires PHP: 8.3
+Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -39,7 +39,7 @@ Operational notes:
 Compatibility baseline:
 
 - WordPress 6.9
-- PHP 8.3
+- PHP 7.4 or newer
 
 == Installation ==
 
@@ -105,6 +105,7 @@ No. JavaScript enables the batched in-page progress UI, but the main reset flow 
 
 = 3.3.0 =
 
+- Change: Now runs on PHP 7.4 and newer (was PHP 8.3). No code changes were needed; the code was already 7.4-compatible, so only the declared minimum, the docs and the compatibility checks changed.
 - New: Checks this plugin's GitHub releases for updates, so the Plugins screen offers a one-click update. Only a release tagged `v` plus its version with an uploaded `group-password-reset.zip` is offered.
 - New: Vendored the Plugin Update Checker library (MIT) in `plugin-update-checker/`.
 - New: The update details window falls back to this plugin's own readme when GitHub cannot be reached.

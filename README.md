@@ -5,7 +5,7 @@ Bulk reset WordPress user passwords by scope, skip excluded usernames, and optio
 ## Requirements
 
 - WordPress 6.8.3 or newer
-- PHP 8.3 or newer
+- PHP 7.4 or newer
 - Administrator access to the target site
 
 ## Features
@@ -69,7 +69,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines and [MAINTAIN
 Baseline compatibility target:
 
 - WordPress 6.9
-- PHP 8.3
+- PHP 7.4 (minimum) and PHP 8.3
 
 Recommended manual scenarios:
 
@@ -87,7 +87,7 @@ Recommended manual scenarios:
 - Update the plugin version and changelog.
 - Verify `readme.txt` matches the plugin header and current behavior.
 - Confirm the admin screen loads without PHP notices.
-- Confirm the reset flow works on WordPress 6.9 with PHP 8.3, plus any newer local prerelease builds used for forward-compatibility checks.
+- Confirm the reset flow works on WordPress 6.9 with PHP 7.4 and with PHP 8.3, plus any newer local prerelease builds used for forward-compatibility checks.
 
 ## License
 
