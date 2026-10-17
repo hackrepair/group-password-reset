@@ -15,3 +15,6 @@ node_modules/
 
 # Old copies kept outside the repo; never part of the plugin
 archive/
+
+# Local planning / private implementation
+.planning/
