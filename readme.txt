@@ -4,7 +4,7 @@ Contributors: hackrepair
 Tags: password reset, bulk actions, user management, security
 Requires at least: 6.8.3
 Tested up to: 6.9
-Stable tag: 3.2.0
+Stable tag: 3.3.0
 Requires PHP: 8.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -49,6 +49,18 @@ Compatibility baseline:
 4. Choose `All users`, a specific role, or `Administrator (excluding current user)`.
 5. Enter any excluded usernames, confirm the reset, and start the run.
 
+== Updates ==
+
+This plugin is not distributed on WordPress.org. It checks its own GitHub releases and shows the usual "update available" notice on the Plugins screen. See "External services" below.
+
+== External services ==
+
+This plugin asks GitHub whether a newer release exists, the same way WordPress asks wordpress.org about other plugins.
+
+* **GitHub API** (`api.github.com`): the latest published release of `hackrepair/group-password-reset`, so the Plugins screen can offer an update. Nothing about your site or its users is sent. [Terms of Service](https://docs.github.com/en/site-policy/github-terms/github-terms-of-service) and [Privacy Statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
+
+The plugin makes no other outside requests.
+
 == Support ==
 
 For support, feedback, or discussion, visit:
@@ -81,11 +93,21 @@ Each affected user receives a secure WordPress password reset link so they can c
 
 Passwords are still reset first. If your mail configuration fails, users may be locked out until they receive a reset link through another channel. Use the no-email option if you plan to communicate manually.
 
+= How do updates work? =
+
+This plugin is not distributed on the WordPress.org repository, so it checks its own GitHub releases instead. When a new version is published there, the Plugins screen shows an "update available" notice and offers a one-click update. Nothing about your site is sent.
+
 = Does the plugin require JavaScript? =
 
 No. JavaScript enables the batched in-page progress UI, but the main reset flow also works through a non-JavaScript fallback.
 
 == Changelog ==
+
+= 3.3.0 =
+
+- New: Checks this plugin's GitHub releases for updates, so the Plugins screen offers a one-click update. Only a release tagged `v` plus its version with an uploaded `group-password-reset.zip` is offered.
+- New: Vendored the Plugin Update Checker library (MIT) in `plugin-update-checker/`.
+- New: The update details window falls back to this plugin's own readme when GitHub cannot be reached.
 
 = 3.2.0 =
 

@@ -9,6 +9,7 @@ This plugin is distributed through GitHub releases rather than WordPress.org. Th
 - PHP minimum: `8.3`
 - Current packaging target: `group-password-reset.zip`
 - Zip root directory: `group-password-reset/`
+- Update source: this repository's GitHub releases, checked by the vendored Plugin Update Checker (`plugin-update-checker/`, MIT) through `includes/class-gpr-updater.php`
 
 ## Repo Standards
 
@@ -149,6 +150,16 @@ This plugin is distributed through GitHub releases rather than WordPress.org. Th
 - Build an installable archive whose filename is `group-password-reset.zip`.
 - Verify the archive extracts to a top-level `group-password-reset/` directory.
 - Attach the installable zip to the GitHub release and use that asset in documentation links.
+
+### Updater Rules
+
+- The release tag must be `v` plus the plugin version, for example `v3.3.0`, and must match `Version:` in `group-password-reset.php`, `GPR_VERSION`, and `Stable tag:` in `readme.txt`.
+- The release must carry an uploaded asset named exactly `group-password-reset.zip`. The updater ignores any other asset and never uses GitHub's auto-generated source archive.
+- Pre-releases are skipped, so mark test builds as pre-releases.
+- The updater is deliberately not gated by `is_admin()`; update checks and auto-updates run on cron.
+- `Update URI` in the plugin header must stay the repository URL.
+- Keep `plugin-update-checker/` as an unmodified copy of the upstream library. To upgrade, replace the whole folder, keep it excluded from PHPCS, and re-test update detection.
+- The only outside request the plugin makes is the update check to `api.github.com`. Keep `readme.txt` "External services" accurate if that changes.
 
 ## Local Environment Notes
 

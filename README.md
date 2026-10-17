@@ -19,6 +19,7 @@ Bulk reset WordPress user passwords by scope, skip excluded usernames, and optio
 - Store async progress per reset run so multiple tabs do not overwrite each other
 - Persist only summary counts after completion instead of storing row-level results server-side
 - Write audit-log entries for reset job creation and completion
+- Check this plugin's own GitHub releases for updates, so the Plugins screen offers a one-click update
 
 ## How It Works
 
@@ -39,8 +40,19 @@ When email mode is enabled, the plugin resets passwords first and then attempts 
 - `includes/admin-menu.php` owns the admin screen, asset registration, and the non-JavaScript form handler.
 - `includes/password-reset.php` owns shared reset logic, role-scope handling, summary-backed job state, result formatting, and AJAX endpoints.
 - `includes/audit-log.php` owns the audit table schema and event logging.
+- `includes/class-gpr-updater.php` points WordPress at this plugin's GitHub releases and fills the update details window from `readme.txt`.
+- `plugin-update-checker/` is the vendored third-party update library (see Updates below).
 - `assets/js/admin.js` progressively enhances the admin screen with async batching.
 - `assets/css/admin.css` keeps the UI aligned with a native WordPress admin layout.
+
+## Updates
+
+This plugin is not on the WordPress.org repository, so it checks its own GitHub releases (`hackrepair/group-password-reset`) the way WordPress checks wordpress.org for everything else. When a new version is published there, the Plugins screen shows an "update available" notice and offers a one-click update.
+
+- Only a release whose tag is `v` plus the version (for example `v3.3.0`) and which carries an uploaded `group-password-reset.zip` asset is offered. GitHub's auto-generated source archive is never used, because it would rename the plugin folder and deactivate the plugin.
+- Pre-releases are skipped.
+- The only outside call is the periodic request to `api.github.com`. Nothing about your site is sent, and there is no telemetry.
+- The update library is [Plugin Update Checker](https://github.com/YahnisElsts/plugin-update-checker) by Janis Elsts (MIT), vendored in `plugin-update-checker/`. It is excluded from PHPCS because it is not our code.
 
 ## Maintainer Notes
 

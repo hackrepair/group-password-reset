@@ -9,8 +9,8 @@ Thumbs.db
 .env.*
 
 # Dependencies and build output
-vendor/
-node_modules/
+/vendor/
+/node_modules/
 *.zip
 
 # Old copies kept outside the repo; never part of the plugin
