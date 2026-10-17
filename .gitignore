@@ -1,0 +1,17 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Local config and secrets
+.env
+.env.*
+
+# Dependencies and build output
+vendor/
+node_modules/
+*.zip
+
+# Old copies kept outside the repo; never part of the plugin
+archive/

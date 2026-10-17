@@ -1,0 +1,10 @@
+* text=auto eol=lf
+
+# Keep repo-only files out of `git archive` packages
+/.github        export-ignore
+/.gitignore     export-ignore
+/.gitattributes export-ignore
+/MAINTAINING.md export-ignore
+/SECURITY.md    export-ignore
+/CONTRIBUTING.md export-ignore
+/phpcs.xml.dist export-ignore

@@ -44,10 +44,12 @@ When email mode is enabled, the plugin resets passwords first and then attempts 
 
 ## Maintainer Notes
 
-See [MAINTAINING.md](MAINTAINING.md) for the repository QA checklist, WordPressCS commands, release packaging rules, and local test environment notes.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines and [MAINTAINING.md](MAINTAINING.md) for the repository QA checklist, WordPressCS commands, release packaging rules, and local test environment notes.
 
 ## Support
 
+- Issues and feature requests: [GitHub issues](https://github.com/hackrepair/group-password-reset/issues)
+- Security reports: [report privately](https://github.com/hackrepair/group-password-reset/security/advisories/new) (see [SECURITY.md](SECURITY.md))
 - Reddit support/discussion thread: [Group Password Reset support post](https://www.reddit.com/user/hackrepair/comments/1s8a24b/new_plugin_group_password_reset_bulk_password/)
 
 ## Testing Notes
@@ -74,3 +76,7 @@ Recommended manual scenarios:
 - Verify `readme.txt` matches the plugin header and current behavior.
 - Confirm the admin screen loads without PHP notices.
 - Confirm the reset flow works on WordPress 6.9 with PHP 8.3, plus any newer local prerelease builds used for forward-compatibility checks.
+
+## License
+
+GPL-2.0-or-later. See [LICENSE](LICENSE).

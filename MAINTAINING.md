@@ -49,7 +49,7 @@ This plugin is distributed through GitHub releases rather than WordPress.org. Th
 
 - Do not ask reporters to open public GitHub issues for security vulnerabilities.
 - Prefer GitHub private vulnerability reporting for the repository:
-  - https://github.com/tvcnet/group-password-reset/security/advisories/new
+  - https://github.com/hackrepair/group-password-reset/security/advisories/new
 - GitHub private reporting documentation:
   - https://docs.github.com/en/code-security/how-tos/report-and-fix-vulnerabilities/privately-reporting-a-security-vulnerability
 - If private reporting is unavailable, handle reports through a private maintainer-controlled channel and move discussion out of public threads immediately.
