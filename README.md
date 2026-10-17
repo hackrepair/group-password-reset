@@ -1,12 +1,17 @@
-# The Hack Repair Guy's Group Password Reset
+<h1 align="center">The Hack Repair Guy's Group Password Reset</h1>
 
-Bulk reset WordPress user passwords by scope, skip excluded usernames, and optionally notify affected users with secure password reset links.
+<p align="center">
+  <strong>Bulk reset WordPress user passwords by scope, skip excluded usernames, and optionally notify affected users with secure password reset links.</strong><br>
+  By Jim Walker, The Hack Repair Guy
+</p>
 
-![Version](https://img.shields.io/badge/version-3.3.0-blue)
-![WordPress](https://img.shields.io/badge/WordPress-6.9.4%2B-21759b)
-![Tested up to](https://img.shields.io/badge/tested%20up%20to-7.1.3-21759b)
-![PHP](https://img.shields.io/badge/PHP-7.4%2B-777bb4)
-![License](https://img.shields.io/badge/license-GPL--2.0--or--later-green)
+<p align="center">
+  <img src="https://img.shields.io/badge/version-3.3.0-b34700?style=flat-square" alt="Version 3.3.0">
+  <img src="https://img.shields.io/badge/WordPress-6.9.4%2B-21759b?style=flat-square&logo=wordpress&logoColor=white" alt="WordPress 6.9.4+">
+  <img src="https://img.shields.io/badge/tested%20up%20to-7.1.3-21759b?style=flat-square" alt="Tested up to WordPress 7.1.3">
+  <img src="https://img.shields.io/badge/PHP-7.4%2B-777bb4?style=flat-square&logo=php&logoColor=white" alt="PHP 7.4+">
+  <img src="https://img.shields.io/badge/license-GPLv2%2B-2e7d32?style=flat-square" alt="License GPLv2 or later">
+</p>
 
 <p align="center">
   <a href="https://github.com/hackrepair/group-password-reset/releases/latest"><img src="https://img.shields.io/badge/DOWNLOAD%20PLUGIN-b34700?style=for-the-badge" alt="DOWNLOAD PLUGIN" height="64"></a>
