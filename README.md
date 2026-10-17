@@ -2,11 +2,20 @@
 
 Bulk reset WordPress user passwords by scope, skip excluded usernames, and optionally notify affected users with secure password reset links.
 
+![Version](https://img.shields.io/badge/version-3.3.0-blue)
+![WordPress](https://img.shields.io/badge/WordPress-6.9.4%2B-21759b)
+![Tested up to](https://img.shields.io/badge/tested%20up%20to-7.1.3-21759b)
+![PHP](https://img.shields.io/badge/PHP-7.4%2B-777bb4)
+![License](https://img.shields.io/badge/license-GPL--2.0--or--later-green)
+
 ## Requirements
 
-- WordPress 6.8.3 or newer
-- PHP 7.4 or newer
-- Administrator access to the target site
+| | Minimum | Tested up to |
+|---|---|---|
+| WordPress | 6.9.4 | 7.1.3 |
+| PHP | 7.4 | 8.3 |
+
+Administrator access to the target site is also required.
 
 ## Features
 
@@ -68,7 +77,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines and [MAINTAIN
 
 Baseline compatibility target:
 
-- WordPress 6.9
+- WordPress 6.9.4 (minimum) through 7.1.3
 - PHP 7.4 (minimum) and PHP 8.3
 
 Recommended manual scenarios:
@@ -87,7 +96,7 @@ Recommended manual scenarios:
 - Update the plugin version and changelog.
 - Verify `readme.txt` matches the plugin header and current behavior.
 - Confirm the admin screen loads without PHP notices.
-- Confirm the reset flow works on WordPress 6.9 with PHP 7.4 and with PHP 8.3, plus any newer local prerelease builds used for forward-compatibility checks.
+- Confirm the reset flow works on WordPress 6.9.4 and 7.1.x with PHP 7.4 and with PHP 8.3, plus any newer local prerelease builds used for forward-compatibility checks.
 
 ## License
 

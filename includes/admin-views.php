@@ -54,12 +54,12 @@ function gpr_render_plugin_details_modal() {
 
 					<section class="gpr-plugin-modal__panel" data-gpr-panel="installation" hidden>
 						<ol>
-							<li><?php esc_html_e( 'Download the official group-password-reset.zip release package.', 'group-password-reset' ); ?></li>
+							<li><?php esc_html_e( 'Download the official group-password-reset.zip release package from the GitHub releases page.', 'group-password-reset' ); ?></li>
 							<li><?php esc_html_e( 'Go to Plugins > Add New Plugin in WordPress.', 'group-password-reset' ); ?></li>
 							<li><?php esc_html_e( 'Upload the zip file and activate the plugin.', 'group-password-reset' ); ?></li>
 							<li><?php esc_html_e( 'Open Group Password Reset from the WordPress admin menu.', 'group-password-reset' ); ?></li>
 						</ol>
-						<p><?php esc_html_e( 'Manual installation is also supported by uploading the group-password-reset folder into /wp-content/plugins/.', 'group-password-reset' ); ?></p>
+						<p><?php esc_html_e( 'Manual installation is also supported by uploading the group-password-reset folder into /wp-content/plugins/. Once installed, new versions are offered as one-click updates on the Plugins screen, checked against this plugin\'s GitHub releases.', 'group-password-reset' ); ?></p>
 					</section>
 
 					<section class="gpr-plugin-modal__panel" data-gpr-panel="changelog" hidden>
@@ -75,16 +75,15 @@ function gpr_render_plugin_details_modal() {
 						?>
 						</h3>
 						<ul>
-							<li><?php esc_html_e( 'Modernized the admin experience with a native WordPress layout.', 'group-password-reset' ); ?></li>
-							<li><?php esc_html_e( 'Added a non-JavaScript fallback for the reset workflow.', 'group-password-reset' ); ?></li>
-							<li><?php esc_html_e( 'Added audit logging and reduced persisted row-level result data for better operational security.', 'group-password-reset' ); ?></li>
-							<li><?php esc_html_e( 'Improved batching, result reporting, and exclusion handling.', 'group-password-reset' ); ?></li>
+							<li><?php esc_html_e( 'New: checks this plugin\'s GitHub releases and offers one-click updates on the Plugins screen.', 'group-password-reset' ); ?></li>
+							<li><?php esc_html_e( 'Change: now runs on PHP 7.4 and newer.', 'group-password-reset' ); ?></li>
+							<li><?php esc_html_e( 'New: the update details window falls back to this plugin\'s own readme when GitHub cannot be reached.', 'group-password-reset' ); ?></li>
 							<li>
 							<?php
 							echo esc_html(
 								sprintf(
 								/* translators: 1: tested up to WordPress version, 2: required PHP version */
-									__( 'Updated compatibility guidance to WordPress %1$s and PHP %2$s.', 'group-password-reset' ),
+									__( 'Compatibility: tested up to WordPress %1$s, requires PHP %2$s or newer.', 'group-password-reset' ),
 									GPR_TESTED_UP_TO,
 									GPR_REQUIRES_PHP
 								)
@@ -112,7 +111,7 @@ function gpr_render_plugin_details_modal() {
 						?>
 						</li>
 						<li><strong><?php esc_html_e( 'Compatible up to:', 'group-password-reset' ); ?></strong> <?php echo esc_html( GPR_TESTED_UP_TO ); ?></li>
-						<li><strong><?php esc_html_e( 'Plugin Check (PCP) tested:', 'group-password-reset' ); ?></strong> <?php esc_html_e( 'No errors found.', 'group-password-reset' ); ?></li>
+						<li><strong><?php esc_html_e( 'Requires PHP:', 'group-password-reset' ); ?></strong> <?php echo esc_html( GPR_REQUIRES_PHP ); ?></li>
 						<li><strong><?php esc_html_e( 'Active Installations:', 'group-password-reset' ); ?></strong> <?php echo esc_html( GPR_INSTALLATION_LABEL ); ?></li>
 						<li><a href="<?php echo esc_url( GPR_REPO_URL ); ?>" target="_blank" rel="noopener"><?php esc_html_e( 'GitHub Plugin Page »', 'group-password-reset' ); ?></a></li>
 						<li><a href="<?php echo esc_url( GPR_PLUGIN_URI ); ?>" target="_blank" rel="noopener"><?php esc_html_e( 'Plugin Homepage »', 'group-password-reset' ); ?></a></li>

@@ -1,9 +1,10 @@
 ===== The Hack Repair Guy's Group Password Reset =====
 
-Contributors: hackrepair
+Contributors: hackrepair, tvcnet
+Donate link: https://hackrepair.com/donations/buy-jim-a-coffee
 Tags: password reset, bulk actions, user management, security
-Requires at least: 6.8.3
-Tested up to: 6.9
+Requires at least: 6.9.4
+Tested up to: 7.1.3
 Stable tag: 3.3.0
 Requires PHP: 7.4
 License: GPLv2 or later
@@ -38,12 +39,12 @@ Operational notes:
 
 Compatibility baseline:
 
-- WordPress 6.9
+- WordPress 6.9.4 or newer (tested up to 7.1.3)
 - PHP 7.4 or newer
 
 == Installation ==
 
-1. Upload the plugin files to the `/wp-content/plugins/` directory, or install the plugin through the WordPress plugins screen.
+1. Download `group-password-reset.zip` from the [GitHub releases page](https://github.com/hackrepair/group-password-reset/releases) and upload it under Plugins > Add New Plugin, or upload the plugin folder to `/wp-content/plugins/`.
 2. Activate the plugin through the `Plugins` screen in WordPress.
 3. Open `Group Password Reset` from the WordPress admin menu.
 4. Choose `All users`, a specific role, or `Administrator (excluding current user)`.
@@ -105,6 +106,9 @@ No. JavaScript enables the batched in-page progress UI, but the main reset flow 
 
 = 3.3.0 =
 
+- Fix: The Plugins screen showed "View details" twice. It now shows once.
+- Change: Requires WordPress 6.9.4 or newer, tested up to 7.1.3 (same baseline as the Hack Repair Guy's Plugin Detective).
+- Fix: The details window no longer shows outdated release notes or a hardcoded Plugin Check result.
 - Change: Now runs on PHP 7.4 and newer (was PHP 8.3). No code changes were needed; the code was already 7.4-compatible, so only the declared minimum, the docs and the compatibility checks changed.
 - New: Checks this plugin's GitHub releases for updates, so the Plugins screen offers a one-click update. Only a release tagged `v` plus its version with an uploaded `group-password-reset.zip` is offered.
 - New: Vendored the Plugin Update Checker library (MIT) in `plugin-update-checker/`.

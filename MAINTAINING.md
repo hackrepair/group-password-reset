@@ -4,8 +4,8 @@ This plugin is distributed through GitHub releases rather than WordPress.org. Th
 
 ## Baseline
 
-- WordPress compatibility floor: `6.8.3`
-- WordPress tested up to: `6.9.4`
+- WordPress compatibility floor: `6.9.4`
+- WordPress tested up to: `7.1.3`
 - PHP minimum: `7.4` (code stays 7.4-compatible; checked with PHPCompatibilityWP `testVersion 7.4-` and a PHP 7.4 syntax lint)
 - Current packaging target: `group-password-reset.zip`
 - Zip root directory: `group-password-reset/`
