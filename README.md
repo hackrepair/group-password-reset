@@ -8,6 +8,12 @@ Bulk reset WordPress user passwords by scope, skip excluded usernames, and optio
 ![PHP](https://img.shields.io/badge/PHP-7.4%2B-777bb4)
 ![License](https://img.shields.io/badge/license-GPL--2.0--or--later-green)
 
+<p align="center">
+  <a href="https://github.com/hackrepair/group-password-reset/releases/latest"><img src="https://img.shields.io/badge/DOWNLOAD%20PLUGIN-b34700?style=for-the-badge" alt="DOWNLOAD PLUGIN" height="64"></a>
+</p>
+
+---
+
 ## Requirements
 
 | | Minimum | Tested up to |
