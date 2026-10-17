@@ -10,38 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const resultsTable = document.querySelector('#gpr-results-table');
   const resultsNote = document.querySelector('#gpr-results-note');
   const emailWarning = document.querySelector('#gpr-email-warning');
-  const pluginModal = document.querySelector('#gpr-plugin-modal');
-  const pluginModalTabs = document.querySelectorAll('[data-gpr-tab]');
-  const pluginModalPanels = document.querySelectorAll('[data-gpr-panel]');
-  const pluginModalOpeners = document.querySelectorAll('[data-gpr-view-details]');
-  const pluginModalClosers = document.querySelectorAll('[data-gpr-modal-close]');
   let currentJobId = null;
-
-  if (pluginModal) {
-    pluginModalOpeners.forEach((link) => {
-      link.addEventListener('click', (event) => {
-        event.preventDefault();
-        openPluginModal();
-      });
-    });
-
-    pluginModalClosers.forEach((button) => {
-      button.addEventListener('click', closePluginModal);
-    });
-
-    pluginModalTabs.forEach((tab) => {
-      tab.addEventListener('click', () => {
-        const target = tab.dataset.gprTab;
-        setActivePluginModalTab(target);
-      });
-    });
-
-    document.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape' && !pluginModal.hidden) {
-        closePluginModal();
-      }
-    });
-  }
 
   if (!form || !window.fetch || !window.gprAdmin) {
     return;
@@ -244,29 +213,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function capitalize(value) {
     return value.charAt(0).toUpperCase() + value.slice(1);
-  }
-
-  function openPluginModal() {
-    pluginModal.hidden = false;
-    document.body.classList.add('gpr-modal-open');
-    setActivePluginModalTab('description');
-  }
-
-  function closePluginModal() {
-    pluginModal.hidden = true;
-    document.body.classList.remove('gpr-modal-open');
-  }
-
-  function setActivePluginModalTab(target) {
-    pluginModalTabs.forEach((tab) => {
-      tab.classList.toggle('is-active', tab.dataset.gprTab === target);
-    });
-
-    pluginModalPanels.forEach((panel) => {
-      const isActive = panel.dataset.gprPanel === target;
-      panel.hidden = !isActive;
-      panel.classList.toggle('is-active', isActive);
-    });
   }
 
   function escapeHtml(value) {

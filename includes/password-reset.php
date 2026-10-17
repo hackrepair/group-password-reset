@@ -91,10 +91,6 @@ function gpr_is_valid_scope( $role ) {
 	return is_string( $role ) && isset( $roles[ $role ] );
 }
 
-function gpr_get_target_users( $role ) {
-	return get_users( gpr_get_target_user_query_args( $role ) );
-}
-
 function gpr_get_target_user_query_args( $role, $number = 0, $offset = 0, $count_total = false ) {
 	$args = array(
 		'orderby' => 'ID',
