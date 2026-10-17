@@ -34,7 +34,6 @@ function gpr_add_admin_menu() {
 function gpr_enqueue_admin_assets( $hook_suffix ) {
 	$supported_screens = array(
 		'tools_page_group-password-reset',
-		'plugins.php',
 	);
 
 	if ( ! in_array( $hook_suffix, $supported_screens, true ) ) {
@@ -99,20 +98,6 @@ function gpr_add_plugin_action_links( $actions, $plugin_file ) {
 	array_unshift( $actions, $settings_link );
 
 	return $actions;
-}
-
-function gpr_add_plugin_row_meta( $links, $plugin_file ) {
-	if ( plugin_basename( GPR_PLUGIN_FILE ) !== $plugin_file ) {
-		return $links;
-	}
-
-	$links[] = sprintf(
-		'<a href="#" class="gpr-view-details-link" data-gpr-view-details="1" aria-label="%s">%s</a>',
-		esc_attr__( 'More information about The Hack Repair Guy\'s Group Password Reset', 'group-password-reset' ),
-		esc_html__( 'View details', 'group-password-reset' )
-	);
-
-	return $links;
 }
 
 function gpr_handle_reset_request() {
@@ -224,5 +209,3 @@ add_action( 'admin_menu', 'gpr_add_admin_menu' );
 add_action( 'admin_enqueue_scripts', 'gpr_enqueue_admin_assets' );
 add_action( 'admin_post_gpr_reset_passwords', 'gpr_handle_reset_request' );
 add_filter( 'plugin_action_links', 'gpr_add_plugin_action_links', 10, 2 );
-add_filter( 'plugin_row_meta', 'gpr_add_plugin_row_meta', 10, 2 );
-add_action( 'admin_footer', 'gpr_render_plugin_details_modal' );

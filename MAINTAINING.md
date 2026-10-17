@@ -26,8 +26,7 @@ This plugin is distributed through GitHub releases rather than WordPress.org. Th
 ## Manual QA Checklist
 
 - Confirm the plugin activates cleanly with no PHP notices or warnings.
-- Confirm the plugin row on `plugins.php` shows the expected metadata and `View details` modal.
-- Confirm the modal opens, scrolls to the footer, and the download/homepage links are correct.
+- Confirm the plugin row on `plugins.php` shows `View details` exactly once, and that it opens the details window (filled from `readme.txt`).
 - Confirm a role-based reset works with JavaScript enabled.
 - Confirm an all-users reset works with one or more excluded usernames.
 - Confirm excluded usernames appear in the results summary and are skipped.
@@ -144,7 +143,7 @@ This plugin is distributed through GitHub releases rather than WordPress.org. Th
 
 - Update plugin header metadata in `group-password-reset.php` if compatibility or version values changed.
 - Update `readme.txt` and `README.md` so requirements, behavior, and changelog stay aligned.
-- Confirm the modal metadata still matches the canonical constants in `group-password-reset.php`.
+- Confirm `readme.txt` (Requires at least, Tested up to, Requires PHP, Stable tag) matches the plugin header and the `GPR_` constants.
 - Run WordPressCS and PHP syntax checks.
 - Test on the local WordPress installation at `/Users/JW/Studio/my-wordpress-website`.
 - Build an installable archive whose filename is `group-password-reset.zip`.

@@ -30,8 +30,6 @@ define( 'GPR_REPO_URL', 'https://github.com/hackrepair/group-password-reset' );
 define( 'GPR_REQUIRES_AT_LEAST', '6.9.4' );
 define( 'GPR_REQUIRES_PHP', '7.4' );
 define( 'GPR_TESTED_UP_TO', '7.1.3' );
-define( 'GPR_RELEASE_DATE', 'October 17, 2026' );
-define( 'GPR_INSTALLATION_LABEL', 'Direct GitHub release' );
 define( 'GPR_PLUGIN_FILE', __FILE__ );
 define( 'GPR_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'GPR_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
@@ -51,14 +49,6 @@ function gpr_get_asset_version( $relative_path ) {
 	}
 
 	return GPR_VERSION;
-}
-
-function gpr_get_release_url() {
-	return trailingslashit( GPR_REPO_URL ) . 'releases/tag/v' . GPR_VERSION;
-}
-
-function gpr_get_download_url() {
-	return trailingslashit( GPR_REPO_URL ) . 'releases/download/v' . GPR_VERSION . '/group-password-reset.zip';
 }
 
 require_once GPR_PLUGIN_DIR . 'includes/password-reset.php';

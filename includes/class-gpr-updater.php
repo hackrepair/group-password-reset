@@ -65,10 +65,6 @@ final class GPR_Updater {
 
 		$this->checker->setBranch( self::BRANCH );
 
-		// This plugin already adds its own "View details" link to the Plugins
-		// screen row. An empty label stops the update library adding a second one.
-		add_filter( 'puc_view_details_link-' . self::SLUG, '__return_empty_string' );
-
 		$api = $this->checker->getVcsApi();
 
 		// A different loaded version of the update checker may lack one of the

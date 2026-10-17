@@ -106,9 +106,9 @@ No. JavaScript enables the batched in-page progress UI, but the main reset flow 
 
 = 3.3.0 =
 
-- Fix: The Plugins screen showed "View details" twice. It now shows once.
+- Fix: The Plugins screen showed "View details" twice. It now shows once, and opens the details window built from this readme.
 - Change: Requires WordPress 6.9.4 or newer, tested up to 7.1.3 (same baseline as the Hack Repair Guy's Plugin Detective).
-- Fix: The details window no longer shows outdated release notes or a hardcoded Plugin Check result.
+- Change: Removed the separate built-in details popup (its release notes were outdated); the standard WordPress details window is used instead.
 - Change: Now runs on PHP 7.4 and newer (was PHP 8.3). No code changes were needed; the code was already 7.4-compatible, so only the declared minimum, the docs and the compatibility checks changed.
 - New: Checks this plugin's GitHub releases for updates, so the Plugins screen offers a one-click update. Only a release tagged `v` plus its version with an uploaded `group-password-reset.zip` is offered.
 - New: Vendored the Plugin Update Checker library (MIT) in `plugin-update-checker/`.
