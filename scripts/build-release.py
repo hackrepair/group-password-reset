@@ -7,7 +7,8 @@ root=Path(__file__).resolve().parents[1]
 main=next(f for f in root.glob('*.php') if re.search(r'Plugin Name:',f.read_text()))
 slug=main.stem if main.stem != 'index' else root.name
 version=re.search(r'Version:\s*([0-9.]+)',main.read_text()).group(1)
-output=a.output or root/'dist'/(slug+'.'+version+'.zip');output.parent.mkdir(parents=True,exist_ok=True)
+asset_name = 'group-password-reset.zip' if slug == 'group-password-reset' else slug+'.'+version+'.zip'
+output=a.output or root/'dist'/asset_name;output.parent.mkdir(parents=True,exist_ok=True)
 excluded={'.git','.github','.review','tests','scripts','dist','releases','node_modules','vendor','docs','.wordpress-org'}
 excluded_files={'.DS_Store','.gitignore','.editorconfig','.distignore','phpcs.xml.dist','README.md','PROJECT.md','PROJECT_UPDATES.md'}
 patterns=[]
