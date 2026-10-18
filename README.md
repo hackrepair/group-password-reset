@@ -112,3 +112,15 @@ Recommended manual scenarios:
 ## License
 
 GPL-2.0-or-later. See [LICENSE](LICENSE).
+
+## 3.4.0
+
+View Details now includes **Other THRG Plugins**, a guide to the three companion tools with descriptions and project links.
+
+## 3.4.1
+
+Corrected release packaging to retain the complete bundled updater, including the View Details parser dependencies.
+
+## 3.4.2
+
+View Details uses the approved compact companion-plugin cards, with content contained beside the sidebar and the installed version displayed.
