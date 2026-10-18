@@ -24,7 +24,9 @@ Use it to:
 - exclude specific usernames from a run
 - attempt to notify each affected user with a secure password reset link
 - run in reset-only mode without sending email
-- review success, failure, and skipped summaries after each run
+- review the latest 20 per-user rows and full-run success, failure, and skipped counts
+- manually email selected administrators a branded HTML summary with a plain-text alternative
+- select administrators individually or with All administrators, add a note, and review the subject
 - retain a durable audit trail for security-sensitive operations
 
 The plugin supports two execution paths:
@@ -34,7 +36,7 @@ The plugin supports two execution paths:
 
 Operational notes:
 
-- Detailed per-user result rows are shown during the active JavaScript run, but only summary counts are persisted after completion.
+- Detailed per-user result rows are shown during the active JavaScript run, limited to the most recent 20 rows. Older rows are removed automatically; full-run summary counts and metadata are retained after completion, without detailed rows.
 - When email mode is enabled, passwords are invalidated before reset-link emails are attempted. Mail failures do not roll back the reset.
 
 Compatibility baseline:
@@ -50,6 +52,7 @@ Compatibility baseline:
 4. Choose `All users`, a specific role, or `Administrator (excluding current user)`.
 5. Enter any excluded usernames. Under Notifications and confirmation, choose whether to skip emails, acknowledge the password change, and select Reset Passwords.
 6. Review progress and Latest results. The in-page completion message is **Done! Password reset complete.**, displayed in bold. Always review the result counts and details.
+7. To share a completed summary, use Notify administrators, select recipients, optionally add a note, review Preview summary and Subject, then choose Send email.
 
 == Updates ==
 
@@ -61,7 +64,7 @@ This plugin asks GitHub whether a newer release exists, the same way WordPress a
 
 * **GitHub API** (`api.github.com`): the latest published release of `hackrepair/group-password-reset`, so the Plugins screen can offer an update. Account lists, passwords, and reset links are not included. Standard connection information, such as the server IP and HTTP headers, is visible to GitHub. [Terms of Service](https://docs.github.com/en/site-policy/github-terms/github-terms-of-service) and [Privacy Statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
 
-Update metadata and release downloads can also use GitHub-hosted URLs. Password-reset notifications use the site’s WordPress email configuration. No additional telemetry is added.
+Update metadata and release downloads can also use GitHub-hosted URLs. User reset-link emails and administrator summaries use the site’s WordPress email configuration. No additional telemetry is added.
 
 == Support ==
 
@@ -73,8 +76,19 @@ https://www.reddit.com/user/hackrepair/comments/1s8a24b/new_plugin_group_passwor
 
 = Can I notify administrators after a reset? =
 
-Yes. In Notify administrators, select administrator accounts, optionally add a note, preview the summary, and choose Email to administrators. This works independently of reset-link emails to affected users. Only your latest completed summary is available, for 15 minutes. Each recipient receives a separate email; acceptance for sending does not guarantee delivery. Wait one minute between sends.
+Yes. In Notify administrators, select individual administrator accounts or All administrators, optionally add a note, review Preview summary and Subject, then choose Send email. No recipients are selected automatically. The responsive recipient list uses two columns on desktop and stacks on small screens.
 
+The delivered email uses a full-width THRG HTML template with a personalized greeting, results table, optional note, notification mode, failure guidance, dashboard button, and a plain-text alternative. Preview summary shows the plain-text summary content. This works independently of reset-link emails to affected users, including reset-only mode.
+
+Only the initiating administrator's latest completed summary is available, for 15 minutes; a newer completed run replaces it. Recipients must be current administrator accounts with valid addresses (up to 100 shown). Each receives a separate email. The summary omits passwords, reset links, and target-user lists; do not add sensitive details to the personal note. Acceptance for sending does not guarantee delivery. Wait one minute between sends.
+
+= How many Latest results rows are kept? =
+
+Only the most recent 20 per-user rows in the current JavaScript run are displayed. Older rows are removed as new results arrive. Summary counts and administrator emails cover the entire run. Detailed rows are not saved server-side; refreshing or leaving the page loses them. The next page load can show the one-use summary notice, which expires after 15 minutes.
+
+= How are email subjects identified? =
+
+Both email types include the site domain and plugin name: `[example.com] [Group Password Reset] Password Reset` for user reset links and `[example.com] [Group Password Reset] Password Reset Summary` for administrator summaries. The configured home URL supplies the domain, including subdomains and explicit local ports. Both messages identify the site URL in their body. User reset-link emails remain plain text.
 
 = Can I reset passwords for only one role? =
 
@@ -90,7 +104,7 @@ Yes. Choose `Administrator (excluding current user)` to target administrator acc
 
 = What happens to excluded usernames? =
 
-Excluded usernames are skipped, shown in the results table, and persisted for the next run.
+Excluded usernames are skipped and the exclusion list is saved for the next run. Skipped entries appear in the active results table but may be removed when newer entries exceed its 20-row limit. Exclusion counts remain in the full-run summary.
 
 = What email do users receive? =
 
@@ -119,7 +133,8 @@ No. JavaScript enables the batched in-page progress UI, but the main reset flow 
 == Changelog ==
 
 = 3.5.1 =
-* Add a full-width branded HTML administrator summary email with result table, personal note, failure guidance, dashboard button, and plain-text alternative.
+* Add a full-width branded HTML administrator summary email with personalized greeting, result table, personal note, failure guidance, dashboard button, and plain-text alternative.
+* Match Site Inspector’s administrator selector with a tinted panel, responsive two-column list, All administrators and partial-selection states, muted addresses, subject preview, and Send email button.
 
 
 = 3.5.0 =

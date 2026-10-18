@@ -31,7 +31,7 @@ Current release: **3.5.1**.
 - Confirm the plugin row on `plugins.php` shows `View details` exactly once, and that it opens the details window (filled from `readme.txt`).
 - Confirm a role-based reset works with JavaScript enabled.
 - Confirm an all-users reset works with one or more excluded usernames.
-- Confirm excluded usernames appear in the results summary and are skipped.
+- Confirm excluded usernames are skipped; only the latest 20 per-user rows remain visible, while summary counts cover the entire run.
 - Confirm a no-match role finishes cleanly without getting stuck.
 - Confirm the non-JavaScript fallback path works through `admin-post.php`.
 - Confirm summary totals and per-user statuses stay consistent between async and fallback runs.
@@ -154,7 +154,7 @@ Current release: **3.5.1**.
 
 ### Updater Rules
 
-- The release tag must be `v` plus the plugin version, for example `v3.5.0`, and must match `Version:` in `group-password-reset.php`, `GPR_VERSION`, and `Stable tag:` in `readme.txt`.
+- The release tag must be `v` plus the plugin version, for example `v3.5.1`, and must match `Version:` in `group-password-reset.php`, `GPR_VERSION`, and `Stable tag:` in `readme.txt`.
 - The release must carry an uploaded asset named exactly `group-password-reset.zip`. The updater ignores any other asset and never uses GitHub's auto-generated source archive.
 - Pre-releases are skipped, so mark test builds as pre-releases.
 - The updater is deliberately not gated by `is_admin()`; update checks and auto-updates run on cron.
@@ -177,15 +177,26 @@ Current release: **3.5.1**.
 - Completion means processing ended; review success, failure, and skipped counts. Email acceptance is not proof of delivery.
 - Preserve the per-user qualification when passwords changed but notification failed.
 - Review desktop/mobile, no-JavaScript form, and PHP/JavaScript summary consistency without triggering resets on real users.
-- Run focused tests with `php tests/update-notices.php`, syntax checks, and the shared PHPCS wrapper before packaging with `python3 scripts/build-release.py`.
+- Run focused tests with `php tests/admin-notification.php` and `php tests/update-notices.php`, syntax checks, and the shared PHPCS wrapper before packaging with `python3 scripts/build-release.py`.
 - Include a Codex Security diff-review reminder before release; do not run that plugin automatically from these notes.
 
 ## Administrator summary notifications (3.5.0)
 
-After a completed reset, use **Notify administrators** to select current administrator accounts, add an optional note, preview the summary, and choose **Email to administrators**. Recipients are not selected automatically. This manual notification works independently of the affected-user email setting, including reset-only mode.
+After a completed reset, use **Notify administrators** to select current administrator accounts, add an optional note, preview the summary, and choose **Send email**. Recipients are not selected automatically. This manual notification works independently of the affected-user email setting, including reset-only mode.
 
 The server keeps the initiating administrator’s latest summary for 15 minutes. A newer completed run replaces it. The email includes site URL, completion time, scope, counts, exclusions count, and notification mode; it excludes passwords, reset links, usernames, and individual email addresses. A personal note is included exactly as sanitized text, so avoid adding sensitive details.
 
 Sending requires administrator permission and a valid nonce. Recipients are checked against current administrator accounts (up to 100 shown); repeat sends are throttled for one minute. Each recipient receives a separate email. Feedback distinguishes acceptance for sending from failure and does not guarantee delivery. Both JavaScript and regular form submission are supported.
 
 Latest results retains only the most recent 20 per-user rows in the current run. Older displayed rows are removed as new results arrive. Summary counts and administrator summary emails continue to cover the whole run. Detailed rows are not persisted after the run.
+
+## 3.5.1 email and recipient checks
+
+- Check the full-width HTML layout, personalized greeting, escaped note/scope/notification content, result table, conditional failure guidance, dashboard button, and privacy footer. Each HTML email must include a plain-text alternative; remove the temporary PHPMailer hook after sending.
+- Check `[domain] [Group Password Reset]` tags in both email subjects. User reset-link messages remain plain text.
+- Check the tinted panel, two-column desktop/single-column mobile recipient list, All administrators select/clear and indeterminate states, muted addresses, full-width note field, subject preview, and Send email button. Recipients default to unselected.
+- Verify nonce/permission checks, summary ownership, replaced/expired summaries, current-recipient validation, the one-minute throttle, mail failures, and no target-account data in summary storage or email.
+- Summary preview is plain text; the sent administrator email is HTML plus a plain-text alternative. The summary lives for 15 minutes; the one-use results flash is separate.
+- Local Mailpit setup is documented outside the release tree at `/Volumes/BACKUP8TB2/plugins/local-mailpit/README.md`. Capture is fixture-only and does not establish external delivery or email-client compatibility.
+- Use the existing updater instance when checking live metadata. Creating another instance for the same slug triggers the library's duplicate-slug error.
+- Preserve published ZIPs and tags. Repository-only documentation corrections are included in the next release package; do not silently overwrite a published asset.

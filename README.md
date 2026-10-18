@@ -34,12 +34,15 @@ Administrator access to the target site is also required.
 
 - Reset passwords for all users, a single role, or `Administrator (excluding current user)`
 - Persist excluded usernames between runs
-- Show skipped users in the active results table
+- Show the latest 20 per-user results, including skipped accounts, while summary counts cover the full run
 - Send secure password reset links by email instead of exposing raw passwords
 - Support a reset-only mode that skips email when admins need to communicate through another channel
 - Support both JavaScript-enhanced batch processing and a chunked non-JavaScript fallback
 - Store async progress per reset run so multiple tabs do not overwrite each other
-- Persist only summary counts after completion instead of storing row-level results server-side
+- Retain completed summary counts and metadata for up to 15 minutes, without storing per-user result rows
+- Manually email selected administrators a full-width branded HTML summary with a plain-text alternative
+- Select recipients individually or with All administrators; add an optional note and review the subject
+- Identify plugin emails with `[domain] [Group Password Reset]` subject tags
 - Write audit-log entries for reset job creation and completion
 - Check this plugin's own GitHub releases for updates, so the Plugins screen offers a one-click update
 
@@ -51,16 +54,34 @@ Administrator access to the target site is also required.
 4. Choose whether to attempt email notifications or run in reset-only mode.
 5. Confirm that you want to invalidate current passwords.
 6. Select **Reset Passwords**, then review progress and **Latest results**. The in-page completion message is **Done! Password reset complete.**, displayed in bold. Check the result counts and details for failures or skipped accounts.
+7. To share the completed summary, use **Notify administrators**, select recipients, optionally add a note, review **Preview summary** and **Subject**, then choose **Send email**.
 
 With JavaScript enabled, the plugin processes users in batches of 20 and updates the results table in place. Without JavaScript, the form submits through WordPress `admin-post.php`, processes the reset in redirecting batches, and returns to the admin screen with the final summary.
 
 When email mode is enabled, the plugin resets passwords first and then attempts to send secure reset-link emails. Mail failures do not roll back the reset, so choose no-email mode when you plan to communicate through another channel.
+
+## Administrator summaries and email format
+
+After a completed reset, **Notify administrators** shows a tinted recipient panel. Select individual administrators or use **All administrators**. The list uses two columns on desktop and stacks on small screens. Nothing is selected automatically. Add an optional personal note, review the plain-text **Preview summary** and subject, then choose **Send email**. The preview shows summary content; the delivered administrator email uses the branded HTML template.
+
+The latest completed summary belongs to the administrator who ran it and is available for 15 minutes; a newer completed run replaces it. Summary metadata includes completion time, scope, notification mode, exclusion count, and full-run counts. The results screen retains only the latest 20 per-user rows during the current JavaScript run; older rows are removed and detailed rows are not saved for later review. The counts and emailed summary still cover the whole run.
+
+Administrator emails use a full-width THRG HTML layout inspired by Site Inspector, with a personalized greeting, optional note, results table, notification mode, conditional failure guidance, dashboard button, and privacy footer. Each message includes a plain-text alternative. User reset-link emails retain their plain-text format. Subjects use:
+
+- `[example.com] [Group Password Reset] Password Reset`
+- `[example.com] [Group Password Reset] Password Reset Summary`
+
+The domain is taken from the configured site home URL, retaining subdomains and explicit ports (such as `localhost:8081`) and omitting scheme and path. Both message types identify the site URL in the body.
+
+Summary sending is independent of reset-link notifications and works after a reset-only run. It requires `manage_options`, a valid nonce, the initiating administrator's current summary, and current administrator recipients with valid addresses (up to 100 shown). Each receives a separate message; repeat sends are throttled for one minute. The summary omits target-user lists, passwords, and reset links. Personal notes are sanitized text; avoid adding sensitive information yourself. Sending feedback reports acceptance or failure, not confirmed delivery. JavaScript and regular form submission are supported.
 
 ## Architecture Notes
 
 - `group-password-reset.php` is the bootstrap file and loads the admin and reset subsystems.
 - `includes/admin-menu.php` owns the admin screen, asset registration, and the non-JavaScript form handler.
 - `includes/password-reset.php` owns shared reset logic, role-scope handling, summary-backed job state, result formatting, and AJAX endpoints.
+- `includes/admin-notification.php` owns summary storage, recipient selection, preview, and administrator email endpoints.
+- `includes/email.php` builds domain/plugin subject tags; `includes/email-template.php` renders the HTML administrator summary.
 - `includes/audit-log.php` owns the audit table schema and event logging.
 - `includes/class-gpr-updater.php` points WordPress at this plugin's GitHub releases and fills the update details window from `readme.txt`.
 - `plugin-update-checker/` is the vendored third-party update library (see Updates below).
@@ -71,7 +92,7 @@ When email mode is enabled, the plugin resets passwords first and then attempts 
 
 This plugin is not on the WordPress.org repository, so it checks its own GitHub releases (`hackrepair/group-password-reset`) the way WordPress checks wordpress.org for everything else. When a new version is published there, the Plugins screen shows an "update available" notice and offers a one-click update.
 
-- Only a release whose tag is `v` plus the version (for example `v3.5.0`) and which carries an uploaded `group-password-reset.zip` asset is offered. GitHub's auto-generated source archive is never used, because it would rename the plugin folder and deactivate the plugin.
+- Only a release whose tag is `v` plus the version (for example `v3.5.1`) and which carries an uploaded `group-password-reset.zip` asset is offered. GitHub's auto-generated source archive is never used, because it would rename the plugin folder and deactivate the plugin.
 - Pre-releases are skipped.
 - Update discovery and metadata retrieval contact GitHub; installation downloads the published ZIP. Account lists, passwords, and reset links are not included in update requests. These requests expose standard connection information, such as the server IP and HTTP headers. There is no added telemetry.
 - Manual update failures explain temporary availability problems. Confirmed GitHub rate limits show a retry time; detailed diagnostics are collapsed. This reporting does not enforce a retry cooldown.
@@ -103,7 +124,9 @@ Recommended manual scenarios:
 - Trigger a run with JavaScript disabled to verify the fallback path.
 - Verify results distinguish `success`, `failed`, and `skipped`.
 - Verify the audit log records start and completion events without storing target usernames or emails.
-- Verify completed runs retain counts-only summary data after reload.
+- Verify completed runs retain summary counts and metadata without per-user rows after reload.
+- Check the last-20-row limit across multiple batches.
+- Check administrator selection, select-all/partial states, summary ownership/expiry, email subjects, HTML/plain-text parts, and failure guidance. Use a local mail catcher such as Mailpit.
 
 ## Release Checklist
 
@@ -111,6 +134,8 @@ Recommended manual scenarios:
 - Verify `readme.txt` matches the plugin header and current behavior.
 - Keep the bold completion text **Done! Password reset complete.** aligned with the localized JavaScript string and completion styling.
 - Confirm the admin screen loads without PHP notices.
+- Run `php tests/admin-notification.php`, `php tests/update-notices.php`, PHP/JavaScript syntax checks, and shared PHPCS.
+- Consider a Codex Security diff review; do not run the security plugin automatically.
 - Confirm the reset flow works on WordPress 6.9.4 and 7.1.x with PHP 7.4 and with PHP 8.3, plus any newer local prerelease builds used for forward-compatibility checks.
 
 ## License
@@ -139,20 +164,6 @@ Matches the Site Inspector design family with a THRG mascot header, orange secti
 
 The 3.5.0 refresh includes **Choose accounts**, **Notifications and confirmation**, **How password resets work**, and **Latest results**. The completion message **Done! Password reset complete.** is bold.
 
-## Administrator summary notifications (3.5.0)
-
-After a completed reset, use **Notify administrators** to select current administrator accounts, add an optional note, preview the summary, and choose **Email to administrators**. Recipients are not selected automatically. This manual notification works independently of the affected-user email setting, including reset-only mode.
-
-The server keeps the initiating administrator’s latest summary for 15 minutes. A newer completed run replaces it. The email includes site URL, completion time, scope, counts, exclusions count, and notification mode; it excludes passwords, reset links, usernames, and individual email addresses. A personal note is included exactly as sanitized text, so avoid adding sensitive details.
-
-Sending requires administrator permission and a valid nonce. Recipients are checked against current administrator accounts (up to 100 shown); repeat sends are throttled for one minute. Each recipient receives a separate email. Feedback distinguishes acceptance for sending from failure and does not guarantee delivery. Both JavaScript and regular form submission are supported.
-
-Email identification: both plugin email subjects now use `[domain] [Group Password Reset] Password Reset` or `[domain] [Group Password Reset] Password Reset Summary`. The domain comes from the site's configured home URL, preserving subdomains and local ports while omitting scheme and path. User reset messages also identify the site URL in their text. This adapts WordPress core's bracketed site-name convention to a domain prefix.
-
-Latest results retains only the most recent 20 per-user rows in the current run. Older displayed rows are removed as new results arrive. Summary counts and administrator summary emails continue to cover the whole run. Detailed rows are not persisted after the run.
-
-In 3.5.1, administrator summaries use a full-width branded HTML layout inspired by Site Inspector, with a personalized greeting, sender note, result table, failure guidance, and dashboard button. A plain-text alternative is included. Domain/plugin subject tags are preserved.
-
 ## 3.5.1
 
-Administrator summary emails use a full-width THRG HTML layout inspired by Site Inspector, with a dark header, warm background, result table, personal note, failure guidance, and dashboard button. Each message includes a plain-text alternative. User reset-link emails retain their existing format.
+Administrator summary emails use a full-width THRG HTML layout inspired by Site Inspector, with a dark header, warm background, result table, personal note, failure guidance, and dashboard button. Each message includes a plain-text alternative. User reset-link emails retain their plain-text format. The administrator selector includes a tinted panel, responsive recipient list, All administrators control, subject preview, and Send email button.
