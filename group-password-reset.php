@@ -3,7 +3,7 @@
  * Plugin Name: The Hack Repair Guy's Group Password Reset
  * Plugin URI: https://hackrepair.com/plugins/group-password-reset
  * Description: Bulk reset WordPress user passwords by role, exclude selected users, and optionally notify affected users with secure reset links.
- * Version: 3.5.0
+ * Version: 3.5.1
  * Requires at least: 6.9.4
  * Requires PHP: 7.4
  * Tested up to: 7.1.3
@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'GPR_VERSION', '3.5.0' );
+define( 'GPR_VERSION', '3.5.1' );
 define( 'GPR_PLUGIN_NAME', "The Hack Repair Guy's Group Password Reset" );
 define( 'GPR_PLUGIN_URI', 'https://hackrepair.com/plugins/group-password-reset' );
 define( 'GPR_AUTHOR_NAME', 'Jim Walker' );
@@ -52,6 +52,7 @@ function gpr_get_asset_version( $relative_path ) {
 }
 
 require_once GPR_PLUGIN_DIR . 'includes/email.php';
+require_once GPR_PLUGIN_DIR . 'includes/email-template.php';
 require_once GPR_PLUGIN_DIR . 'includes/password-reset.php';
 require_once GPR_PLUGIN_DIR . 'includes/audit-log.php';
 require_once GPR_PLUGIN_DIR . 'includes/admin-notification.php';

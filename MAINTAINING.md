@@ -2,7 +2,7 @@
 
 This plugin is distributed through GitHub releases rather than WordPress.org. The repository should still stay close to WordPress plugin expectations so that future review or distribution changes do not require a large cleanup pass.
 
-Current review build: **3.5.0**; latest published release: **3.4.3** pending approval of 3.5.0.
+Current release: **3.5.1**.
 
 ## Baseline
 
@@ -165,7 +165,7 @@ Current review build: **3.5.0**; latest published release: **3.4.3** pending app
 ## Local Environment Notes
 
 - Current review fixture: Zendogs, `http://localhost:8081/wp-admin/tools.php?page=group-password-reset`.
-- Current release: 3.5.0. Inspect the actual installed header before future work.
+- Current release: 3.5.1. Inspect the actual installed header before future work.
 - The prior Studio environment at `/Users/JW/Studio/my-wordpress-website` is a historical reference, not the designated current review fixture.
 - Keep user-facing compatibility metadata separate from the versions actually exercised in this review. Full reset/mail and cross-version tests remain release gates.
 

@@ -1,7 +1,7 @@
 # Group Password Reset: Site Inspector interface upgrade
 
-Status: 3.5.0 approved for release on October 18, 2026; installed on Zendogs. See releases/v3.5.0.md for the final release scope and validation limits.  
-Created: 2026-10-18.  
+Status: 3.5.1 approved for release on October 18, 2026; installed on Zendogs. See releases/v3.5.1.md for the final release scope and validation limits.
+Created: 2026-10-18.
 Design reference confirmed by Jim: **The Hack Repair Guy's Site Inspector**.
 
 ## Objective
@@ -161,8 +161,20 @@ Email identification: both plugin email subjects now use `[domain] [Group Passwo
 
 Latest results retains only the most recent 20 per-user rows in the current run. Older displayed rows are removed as new results arrive. Summary counts and administrator summary emails continue to cover the whole run. Detailed rows are not persisted after the run.
 
-Administrator summaries use a WordPress-style plain-text message with greeting, explanatory paragraphs, labeled site/time/scope, optional sender note, spaced results and notification sections, conditional failure guidance, dashboard link, and closing. Domain/plugin subject tags are preserved.
+In the 3.5.1 review build, administrator summaries use a full-width branded HTML layout inspired by Site Inspector, with a personalized greeting, sender note, result table, failure guidance, and dashboard button. A plain-text alternative is included. Domain/plugin subject tags are preserved.
 
 ## Release approval — October 18, 2026
 
 The user approved packaging and publishing 3.5.0. Earlier review entries above describe the evidence available at each stage. Mailpit subsequently verified actual local SMTP capture. External delivery, full no-JavaScript submission, screen-reader and cross-version matrix checks remain unverified. Local capture configuration stays outside the release package.
+
+## 3.5.1 HTML email review
+
+In progress: full-width administrator summary email matching Site Inspector branding, inline email CSS and table layout, personal note, full-run count table, failure follow-up, dashboard button, escaped dynamic content, and plain-text alternative. Preserve domain/plugin subject tags. Review on Zendogs with Mailpit before publication.
+
+Validation: notification regressions (including HTML escaping, multipart alternative, recipient personalization, and full-width checks), updater-message tests, shared PHPCS, and diff whitespace checks passed. Mailpit captured both HTML and plain text from the actual notification function on Zendogs. Desktop and 390px browser rendering were visually checked without horizontal overflow. Other email clients have not been tested. No passwords were reset. 3.5.1 remains unpublished.
+
+Administrator selector matches Site Inspector: tinted panel, All administrators control with partial-selection state, two-column recipient list that stacks on mobile, muted addresses, note placeholder, subject preview, and Send email button. Recipients remain unselected until explicitly chosen.
+
+## 3.5.1 release approval
+
+User approved packaging and publication on October 18, 2026. Earlier unpublished/review statements above are historical. Final release scope and verification limits are in releases/v3.5.1.md.

@@ -99,25 +99,36 @@ function gpr_render_notification_panel() {
 			<p><?php esc_html_e( 'Email a completed reset summary to selected administrators. This is separate from reset-link emails to affected users.', 'group-password-reset' ); ?></p>
 			<p><?php esc_html_e( 'The summary is available for 15 minutes after completion. It contains counts, scope, completion time, and notification mode, without passwords, reset links, or per-user results.', 'group-password-reset' ); ?></p>
 			<p id="gpr-notify-empty"<?php echo $entry ? ' hidden' : ''; ?>><?php esc_html_e( 'Complete a password reset to prepare a summary.', 'group-password-reset' ); ?></p>
-			<form id="gpr-notify-form" method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>"<?php echo $entry ? '' : ' hidden'; ?>>
+			<form id="gpr-notify-form" class="gpr-notify-form" method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>"<?php echo $entry ? '' : ' hidden'; ?>>
 				<input type="hidden" name="action" value="gpr_email_summary">
 				<input type="hidden" name="report" value="<?php echo esc_attr( $entry['id'] ?? '' ); ?>">
 				<?php wp_nonce_field( 'gpr_email_summary' ); ?>
 				<fieldset class="gpr-field">
 					<legend><strong><?php esc_html_e( 'Send summary to:', 'group-password-reset' ); ?></strong></legend>
+					<?php if ( $recipients ) : ?>
+						<p class="gpr-notify-all"><label><input type="checkbox" id="gpr-notify-all">
+						<?php
+							/* translators: %d: number of administrator recipients. */
+							echo esc_html( sprintf( __( 'All administrators (%d)', 'group-password-reset' ), count( $recipients ) ) );
+						?>
+						</label></p>
+					<?php endif; ?>
+					<div class="gpr-notify-list">
 					<?php foreach ( $recipients as $recipient ) : ?>
-						<label class="gpr-notify-recipient"><input type="checkbox" name="recipients[]" value="<?php echo esc_attr( $recipient->ID ); ?>"> <?php echo esc_html( $recipient->display_name . ' <' . $recipient->user_email . '>' ); ?></label>
+						<label class="gpr-notify-recipient"><input type="checkbox" name="recipients[]" value="<?php echo esc_attr( $recipient->ID ); ?>"> <?php echo esc_html( $recipient->display_name ); ?> <span class="gpr-notify-muted"><?php echo esc_html( '<' . $recipient->user_email . '>' ); ?></span></label>
 					<?php endforeach; ?>
+					</div>
 					<?php if ( ! $recipients ) : ?>
 						<p><?php esc_html_e( 'No administrator accounts with a valid email address were found.', 'group-password-reset' ); ?></p>
 					<?php endif; ?>
 				</fieldset>
 				<div class="gpr-field">
 					<label for="gpr-notify-note"><?php esc_html_e( 'Add a personal note (optional)', 'group-password-reset' ); ?></label>
-					<textarea id="gpr-notify-note" name="note" rows="3" maxlength="1000"></textarea>
+					<textarea id="gpr-notify-note" name="note" rows="3" maxlength="1000" placeholder="<?php esc_attr_e( 'For example: Please review these results and follow up on any failed notifications.', 'group-password-reset' ); ?>"></textarea>
 				</div>
 				<details class="gpr-how"><summary><?php esc_html_e( 'Preview summary', 'group-password-reset' ); ?></summary><pre id="gpr-notify-preview"><?php echo esc_html( $entry ? gpr_notification_text( $entry ) : '' ); ?></pre></details>
-				<button type="submit" class="button button-primary"<?php disabled( ! $recipients ); ?>><?php esc_html_e( 'Email to administrators', 'group-password-reset' ); ?></button>
+				<p class="gpr-notify-subject"><span class="gpr-notify-muted"><?php esc_html_e( 'Subject:', 'group-password-reset' ); ?></span> <?php echo esc_html( gpr_email_subject( __( 'Password Reset Summary', 'group-password-reset' ) ) ); ?></p>
+				<button type="submit" class="button button-primary"<?php disabled( ! $recipients ); ?>><?php esc_html_e( 'Send email', 'group-password-reset' ); ?></button>
 			</form>
 			<p id="gpr-notify-status" role="status" aria-live="polite"><?php echo esc_html( $status ? $status : '' ); ?></p>
 		</div>
@@ -150,8 +161,17 @@ function gpr_send_notification( $report_id, $user_ids, $note ) {
 	$body = gpr_notification_text( $entry, $note );
 	$sent = 0;
 	foreach ( $recipients as $recipient ) {
-		if ( wp_mail( $recipient->user_email, gpr_email_subject( __( 'Password Reset Summary', 'group-password-reset' ) ), $body, array( 'Content-Type: text/plain; charset=UTF-8' ) ) ) {
-			++$sent;
+		$alternative = static function ( $mailer ) use ( $body ) {
+			$mailer->AltBody = $body; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase -- PHPMailer property.
+		};
+		add_action( 'phpmailer_init', $alternative );
+		try {
+			$html = gpr_notification_html( $entry, $note, (string) $recipient->display_name );
+			if ( wp_mail( $recipient->user_email, gpr_email_subject( __( 'Password Reset Summary', 'group-password-reset' ) ), $html, array( 'Content-Type: text/html; charset=UTF-8' ) ) ) {
+				++$sent;
+			}
+		} finally {
+			remove_action( 'phpmailer_init', $alternative );
 		}
 	}
 	return sprintf(

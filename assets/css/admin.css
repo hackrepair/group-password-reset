@@ -188,5 +188,16 @@
 
 .gpr-admin-page .gpr-progress__status--complete { font-weight: 700; }
 
-.gpr-admin-page .gpr-notify-recipient { display: block; margin: 8px 0; overflow-wrap: anywhere; }
+.gpr-admin-page .gpr-notify-form { margin:4px 0 16px; padding:14px 16px; background:#fff8f2; border:1px solid #f1d9c6; border-radius:6px; }
+.gpr-admin-page .gpr-notify-form fieldset { border:0; margin:0 0 12px; padding:0; }
+.gpr-admin-page .gpr-notify-form legend { font-size:14px; margin-bottom:6px; }
+.gpr-admin-page .gpr-notify-form label { font-size:14px; font-weight:400; }
+.gpr-admin-page .gpr-notify-all { margin:0; }
+.gpr-admin-page .gpr-notify-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:4px 16px; margin:4px 0 0 22px; }
+.gpr-admin-page .gpr-notify-recipient { display:block; margin:0; overflow-wrap:anywhere; }
+.gpr-admin-page .gpr-notify-form input[type="checkbox"] { accent-color:#b34700; margin-right:6px; }
+.gpr-admin-page .gpr-notify-muted { color:#50575e; font-size:12px; }
+.gpr-admin-page .gpr-notify-subject { font-size:13px; background:#fff; border:1px dashed #c3d3df; border-radius:4px; padding:6px 10px; overflow-wrap:anywhere; }
+.gpr-admin-page .gpr-notify-form textarea { width:100%; max-width:none; }
+@media (max-width:782px) { .gpr-admin-page .gpr-notify-list { grid-template-columns:minmax(0,1fr); } }
 .gpr-admin-page #gpr-notify-preview { white-space: pre-wrap; overflow-wrap: anywhere; }

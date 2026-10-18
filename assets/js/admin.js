@@ -18,6 +18,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const notifyForm = document.querySelector('#gpr-notify-form');
   const notifyStatus = document.querySelector('#gpr-notify-status');
+  const notifyAll = document.querySelector('#gpr-notify-all');
+  const recipientBoxes = [...(notifyForm?.querySelectorAll('input[name="recipients[]"]') || [])];
+  const syncRecipientSelection = () => {
+    if (!notifyAll) return;
+    const selected = recipientBoxes.filter((box) => box.checked).length;
+    notifyAll.checked = recipientBoxes.length > 0 && selected === recipientBoxes.length;
+    notifyAll.indeterminate = selected > 0 && selected < recipientBoxes.length;
+  };
+  notifyAll?.addEventListener('change', () => {
+    recipientBoxes.forEach((box) => { box.checked = notifyAll.checked; });
+    syncRecipientSelection();
+  });
+  recipientBoxes.forEach((box) => box.addEventListener('change', syncRecipientSelection));
+  syncRecipientSelection();
   notifyForm?.addEventListener('submit', async (event) => {
     event.preventDefault();
     const button = notifyForm.querySelector('button[type="submit"]');

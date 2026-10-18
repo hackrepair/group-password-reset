@@ -6,7 +6,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-3.5.0-b34700?style=flat-square" alt="Version 3.5.0">
+  <img src="https://img.shields.io/badge/version-3.5.1-b34700?style=flat-square" alt="Version 3.5.1">
   <img src="https://img.shields.io/badge/WordPress-6.9.4%2B-21759b?style=flat-square&logo=wordpress&logoColor=white" alt="WordPress 6.9.4+">
   <img src="https://img.shields.io/badge/tested%20up%20to-7.1.3-21759b?style=flat-square" alt="Tested up to WordPress 7.1.3">
   <img src="https://img.shields.io/badge/PHP-7.4%2B-777bb4?style=flat-square&logo=php&logoColor=white" alt="PHP 7.4+">
@@ -19,7 +19,7 @@
 
 ---
 
-**Current release: 3.5.0.** See the [release notes](releases/v3.5.0.md) for changes and validation scope.
+**Current release: 3.5.1.** See the [release notes](releases/v3.5.1.md) for changes and validation scope.
 
 ## Requirements
 
@@ -151,4 +151,8 @@ Email identification: both plugin email subjects now use `[domain] [Group Passwo
 
 Latest results retains only the most recent 20 per-user rows in the current run. Older displayed rows are removed as new results arrive. Summary counts and administrator summary emails continue to cover the whole run. Detailed rows are not persisted after the run.
 
-Administrator summaries use a WordPress-style plain-text message with greeting, explanatory paragraphs, labeled site/time/scope, optional sender note, spaced results and notification sections, conditional failure guidance, dashboard link, and closing. Domain/plugin subject tags are preserved.
+In 3.5.1, administrator summaries use a full-width branded HTML layout inspired by Site Inspector, with a personalized greeting, sender note, result table, failure guidance, and dashboard button. A plain-text alternative is included. Domain/plugin subject tags are preserved.
+
+## 3.5.1
+
+Administrator summary emails use a full-width THRG HTML layout inspired by Site Inspector, with a dark header, warm background, result table, personal note, failure guidance, and dashboard button. Each message includes a plain-text alternative. User reset-link emails retain their existing format.
