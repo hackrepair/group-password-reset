@@ -2,6 +2,8 @@
 
 This plugin is distributed through GitHub releases rather than WordPress.org. The repository should still stay close to WordPress plugin expectations so that future review or distribution changes do not require a large cleanup pass.
 
+Current review build: **3.5.0**; latest published release: **3.4.3** pending approval of 3.5.0.
+
 ## Baseline
 
 - WordPress compatibility floor: `6.9.4`
@@ -14,7 +16,7 @@ This plugin is distributed through GitHub releases rather than WordPress.org. Th
 ## Repo Standards
 
 - Run WordPress coding standards checks with:
-  - `phpcs --standard=phpcs.xml.dist .`
+  - `/Volumes/BACKUP8TB2/plugins/PHPCS/run-phpcs.sh "$PWD"`
 - Auto-fix safe PHP formatting changes with:
   - `phpcbf --standard=phpcs.xml.dist group-password-reset.php includes`
 - Re-run syntax checks before release:
@@ -124,7 +126,7 @@ This plugin is distributed through GitHub releases rather than WordPress.org. Th
 
 ### Dependency and Release Hygiene
 
-- Re-run `phpcs --standard=phpcs.xml.dist .` before release.
+- Re-run `/Volumes/BACKUP8TB2/plugins/PHPCS/run-phpcs.sh "$PWD"` before release.
 - Re-run syntax checks before release:
   - `php -l group-password-reset.php`
   - `php -l includes/admin-menu.php`
@@ -145,24 +147,45 @@ This plugin is distributed through GitHub releases rather than WordPress.org. Th
 - Update `readme.txt` and `README.md` so requirements, behavior, and changelog stay aligned.
 - Confirm `readme.txt` (Requires at least, Tested up to, Requires PHP, Stable tag) matches the plugin header and the `GPR_` constants.
 - Run WordPressCS and PHP syntax checks.
-- Test on the local WordPress installation at `/Users/JW/Studio/my-wordpress-website`.
+- Review on Zendogs at `http://localhost:8081/wp-admin/tools.php?page=group-password-reset`; use only designated disposable users for actual reset tests.
 - Build an installable archive whose filename is `group-password-reset.zip`.
 - Verify the archive extracts to a top-level `group-password-reset/` directory.
 - Attach the installable zip to the GitHub release and use that asset in documentation links.
 
 ### Updater Rules
 
-- The release tag must be `v` plus the plugin version, for example `v3.3.0`, and must match `Version:` in `group-password-reset.php`, `GPR_VERSION`, and `Stable tag:` in `readme.txt`.
+- The release tag must be `v` plus the plugin version, for example `v3.5.0`, and must match `Version:` in `group-password-reset.php`, `GPR_VERSION`, and `Stable tag:` in `readme.txt`.
 - The release must carry an uploaded asset named exactly `group-password-reset.zip`. The updater ignores any other asset and never uses GitHub's auto-generated source archive.
 - Pre-releases are skipped, so mark test builds as pre-releases.
 - The updater is deliberately not gated by `is_admin()`; update checks and auto-updates run on cron.
 - `Update URI` in the plugin header must stay the repository URL.
 - Keep `plugin-update-checker/` as an unmodified copy of the upstream library. To upgrade, replace the whole folder, keep it excluded from PHPCS, and re-test update detection.
-- The only outside request the plugin makes is the update check to `api.github.com`. Keep `readme.txt` "External services" accurate if that changes.
+- Update discovery, metadata, and package downloads contact GitHub-hosted services. Reset emails use WordPress’s configured mail transport. Keep readme.txt External services accurate.
 
 ## Local Environment Notes
 
-- Primary local site: `http://my-wordpress-website.wp.local/`
-- WordPress admin: `http://my-wordpress-website.wp.local/wp-admin`
-- Local plugin install path: `/Users/JW/Studio/my-wordpress-website/wp-content/plugins/group-password-reset`
-- Forward-compatibility testing on prerelease WordPress builds is useful, but the documented compatibility baseline should remain grounded in the stable target versions above.
+- Current review fixture: Zendogs, `http://localhost:8081/wp-admin/tools.php?page=group-password-reset`.
+- Current release: 3.5.0. Inspect the actual installed header before future work.
+- The prior Studio environment at `/Users/JW/Studio/my-wordpress-website` is a historical reference, not the designated current review fixture.
+- Keep user-facing compatibility metadata separate from the versions actually exercised in this review. Full reset/mail and cross-version tests remain release gates.
+
+## 3.5.0 text and interface checks
+
+- Page sections: Choose accounts; Notifications and confirmation; How password resets work; Latest results.
+- Initial scope is Select a scope; no scope is preselected.
+- Completion text is **Done! Password reset complete.** The JavaScript status is bold; server-rendered success notices append result counts.
+- Completion means processing ended; review success, failure, and skipped counts. Email acceptance is not proof of delivery.
+- Preserve the per-user qualification when passwords changed but notification failed.
+- Review desktop/mobile, no-JavaScript form, and PHP/JavaScript summary consistency without triggering resets on real users.
+- Run focused tests with `php tests/update-notices.php`, syntax checks, and the shared PHPCS wrapper before packaging with `python3 scripts/build-release.py`.
+- Include a Codex Security diff-review reminder before release; do not run that plugin automatically from these notes.
+
+## Administrator summary notifications (3.5.0)
+
+After a completed reset, use **Notify administrators** to select current administrator accounts, add an optional note, preview the summary, and choose **Email to administrators**. Recipients are not selected automatically. This manual notification works independently of the affected-user email setting, including reset-only mode.
+
+The server keeps the initiating administrator’s latest summary for 15 minutes. A newer completed run replaces it. The email includes site URL, completion time, scope, counts, exclusions count, and notification mode; it excludes passwords, reset links, usernames, and individual email addresses. A personal note is included exactly as sanitized text, so avoid adding sensitive details.
+
+Sending requires administrator permission and a valid nonce. Recipients are checked against current administrator accounts (up to 100 shown); repeat sends are throttled for one minute. Each recipient receives a separate email. Feedback distinguishes acceptance for sending from failure and does not guarantee delivery. Both JavaScript and regular form submission are supported.
+
+Latest results retains only the most recent 20 per-user rows in the current run. Older displayed rows are removed as new results arrive. Summary counts and administrator summary emails continue to cover the whole run. Detailed rows are not persisted after the run.

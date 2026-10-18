@@ -16,6 +16,40 @@ document.addEventListener('DOMContentLoaded', () => {
     return;
   }
 
+  const notifyForm = document.querySelector('#gpr-notify-form');
+  const notifyStatus = document.querySelector('#gpr-notify-status');
+  notifyForm?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const button = notifyForm.querySelector('button[type="submit"]');
+    const body = new URLSearchParams(new FormData(notifyForm));
+    button.disabled = true;
+    notifyStatus.textContent = window.gprAdmin.messages.sendingSummary;
+    try {
+      const response = await fetch(window.gprAdmin.ajaxUrl, { method: 'POST', body, credentials: 'same-origin' });
+      const data = await response.json();
+      if (!response.ok || !data.success) throw new Error(data.data || window.gprAdmin.messages.requestFailed);
+      notifyStatus.textContent = data.data;
+    } catch (error) {
+      notifyStatus.textContent = error.message;
+    } finally {
+      button.disabled = false;
+    }
+  });
+
+  async function refreshNotificationSummary() {
+    try {
+      const summary = await postAction('gpr_notification_summary', {});
+      notifyForm.hidden = !summary;
+      document.querySelector('#gpr-notify-empty').hidden = !!summary;
+      if (summary) {
+        notifyForm.elements.report.value = summary.id;
+        document.querySelector('#gpr-notify-preview').textContent = summary.text;
+      }
+    } catch (error) {
+      notifyStatus.textContent = error.message;
+    }
+  }
+
   const skipEmailNotificationsField = form.querySelector('[name="gpr_skip_email_notifications"]');
 
   if (skipEmailNotificationsField) {
@@ -42,6 +76,8 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
+    notifyForm.hidden = true;
+    notifyStatus.textContent = '';
     toggleBusyState(true);
     setProgress(0, window.gprAdmin.messages.preparingJob, '');
     resultsBody.innerHTML = '';
@@ -70,6 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!startResponse.hasQueuedUsers) {
         setProgress(100, window.gprAdmin.messages.complete, window.gprAdmin.messages.noQueuedUsers);
         toggleBusyState(false);
+        await refreshNotificationSummary();
         return;
       }
 
@@ -98,6 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
         currentJobId = null;
         setProgress(100, window.gprAdmin.messages.complete, buildProgressMeta(response.summary));
         toggleBusyState(false);
+        await refreshNotificationSummary();
         return;
       }
 
@@ -152,6 +190,9 @@ document.addEventListener('DOMContentLoaded', () => {
       `;
 
       resultsBody.appendChild(row);
+      while (resultsBody.children.length > 20) {
+        resultsBody.firstElementChild.remove();
+      }
     });
   }
 
@@ -167,11 +208,11 @@ document.addEventListener('DOMContentLoaded', () => {
     resultsSummary.innerHTML = `
       <div class="gpr-summary-grid">
         <div><strong>${escapeHtml(window.gprAdmin.messages.scope)}:</strong> ${escapeHtml(payload.scope_label || window.gprAdmin.messages.allUsers)}</div>
-        <div><strong>${escapeHtml(window.gprAdmin.messages.matchedUsers)}:</strong> ${summary.total}</div>
-        <div><strong>${escapeHtml(window.gprAdmin.messages.processed)}:</strong> ${summary.processed}</div>
-        <div><strong>${escapeHtml(window.gprAdmin.messages.success)}:</strong> ${summary.success}</div>
-        <div><strong>${escapeHtml(window.gprAdmin.messages.failed)}:</strong> ${summary.failed}</div>
-        <div><strong>${escapeHtml(window.gprAdmin.messages.skipped)}:</strong> ${summary.skipped}</div>
+        <div class="gpr-metric gpr-metric--matched"><strong>${summary.total}</strong><span>${escapeHtml(window.gprAdmin.messages.matchedUsers)}</span></div>
+        <div class="gpr-metric gpr-metric--processed"><strong>${summary.processed}</strong><span>${escapeHtml(window.gprAdmin.messages.processed)}</span></div>
+        <div class="gpr-metric gpr-metric--success"><strong>${summary.success}</strong><span>${escapeHtml(window.gprAdmin.messages.success)}</span></div>
+        <div class="gpr-metric gpr-metric--failed"><strong>${summary.failed}</strong><span>${escapeHtml(window.gprAdmin.messages.failed)}</span></div>
+        <div class="gpr-metric gpr-metric--skipped"><strong>${summary.skipped}</strong><span>${escapeHtml(window.gprAdmin.messages.skipped)}</span></div>
       </div>
       <p><strong>${escapeHtml(window.gprAdmin.messages.notificationMode)}:</strong> ${escapeHtml(payload.notification_label || '')}</p>
       <p><strong>${escapeHtml(window.gprAdmin.messages.excludedAccounts)}:</strong> ${escapeHtml(payload.excluded_count ?? 0)}</p>
@@ -194,6 +235,7 @@ document.addEventListener('DOMContentLoaded', () => {
     progressPanel.hidden = false;
     progressBar.value = percent;
     progressStatus.textContent = status;
+    progressStatus.classList.toggle('gpr-progress__status--complete', status === window.gprAdmin.messages.complete);
     progressMeta.textContent = meta;
   }
 

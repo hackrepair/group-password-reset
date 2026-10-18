@@ -126,3 +126,67 @@
         overflow-x: auto;
     }
 }
+
+/* Site Inspector design family. Keep every override on this plugin's page. */
+.gpr-admin-page { --gpr-ink:#18354b; --gpr-muted:#4f6577; --gpr-line:#d5dde4; --gpr-accent:#b34700; --gpr-accent-hover:#8f3a00; max-width:1180px; padding-bottom:32px; color:var(--gpr-ink); }
+.gpr-admin-page * { box-sizing:border-box; }
+.gpr-admin-page [hidden] { display:none !important; }
+.gpr-admin-page p { font-size:14px; line-height:1.6; }
+.gpr-admin-page .gpr-head { display:flex; align-items:center; gap:14px; margin:16px 0 24px; }
+.gpr-admin-page .gpr-mascot { flex:none; object-fit:contain; }
+.gpr-admin-page .gpr-eyebrow { color:var(--gpr-accent); text-transform:uppercase; font-size:12px; font-weight:700; letter-spacing:.08em; margin:0; }
+.gpr-admin-page .gpr-head h1 { color:var(--gpr-ink); font-size:28px; line-height:1.2; margin:3px 0 6px; padding:0; font-weight:700; }
+.gpr-admin-page .gpr-version { font-size:12px; color:var(--gpr-muted); font-weight:400; white-space:nowrap; }
+.gpr-admin-page .gpr-lead { margin:0; color:var(--gpr-muted); max-width:80ch; }
+.gpr-admin-page .gpr-form { display:block; }
+.gpr-admin-page .gpr-block { margin:0 0 20px; }
+.gpr-admin-page .gpr-section { color:var(--gpr-ink); font-size:15px; line-height:1.4; font-weight:700; margin:0; padding:11px 16px; border:1px solid var(--gpr-line); border-bottom:0; border-left:4px solid var(--gpr-accent); border-radius:6px 6px 0 0; background:linear-gradient(90deg,#fff1e6,#fff); }
+.gpr-admin-page .gpr-card { margin:0; padding:20px; border:1px solid var(--gpr-line); border-left:4px solid var(--gpr-accent); border-radius:0 0 6px 6px; box-shadow:none; }
+.gpr-admin-page .gpr-field { margin-bottom:20px; gap:6px; }
+.gpr-admin-page .gpr-field:last-child { margin-bottom:0; }
+.gpr-admin-page .gpr-field select, .gpr-admin-page .gpr-field textarea { max-width:560px; }
+.gpr-admin-page .description { color:var(--gpr-muted); font-size:12px; line-height:1.6; margin:0; }
+.gpr-admin-page .gpr-confirmation { padding:14px; background:#f5f7f9; }
+.gpr-admin-page .gpr-field:has(input[name="gpr_skip_email_notifications"]) { background:none; padding:0; }
+.gpr-admin-page .gpr-confirmation label { font-weight:400; }
+.gpr-admin-page .gpr-confirmation input { accent-color:var(--gpr-accent); }
+.gpr-admin-page .gpr-warning { margin:16px 0; background:#fff4d6; border-color:#e6c46a; border-left:4px solid #d39b1f; color:#634807; }
+.gpr-admin-page .gpr-warning p { font-size:13px; }
+.gpr-admin-page .gpr-progress { margin:16px 0; }
+.gpr-admin-page .gpr-progress__bar { accent-color:var(--gpr-accent); }
+.gpr-admin-page .gpr-actions { margin-top:20px; display:flex; flex-wrap:wrap; align-items:center; gap:14px 18px; }
+.gpr-admin-page .gpr-actions .description { max-width:65ch; }
+.gpr-admin-page .button-primary { background:var(--gpr-accent); border-color:var(--gpr-accent-hover); color:#fff; padding:4px 18px; font-size:14px; }
+.gpr-admin-page .button-primary:hover { background:var(--gpr-accent-hover); border-color:var(--gpr-accent-hover); color:#fff; }
+.gpr-admin-page :is(a,button,input,textarea,select,summary,[tabindex]):focus-visible { outline:3px solid #d87935; outline-offset:3px; }
+.gpr-admin-page .gpr-how { border-top:1px solid var(--gpr-line); padding:14px 0; margin:4px 0 20px; }
+.gpr-admin-page .gpr-how summary { cursor:pointer; font-weight:600; }
+.gpr-admin-page .gpr-steps { margin-top:12px; color:var(--gpr-muted); }
+.gpr-admin-page .gpr-summary-grid { grid-template-columns:repeat(5,minmax(0,1fr)); margin-bottom:16px; }
+.gpr-admin-page .gpr-summary-grid > div:first-child { grid-column:1 / -1; color:var(--gpr-muted); font-size:13px; }
+.gpr-admin-page .gpr-metric { background:#eef2f5; padding:14px 18px; border-radius:8px; }
+.gpr-admin-page .gpr-metric strong { display:block; font-size:28px; line-height:1.2; }
+.gpr-admin-page .gpr-metric span { font-size:12px; }
+.gpr-admin-page .gpr-metric--success { background:#e6f3ec; color:#2e6b4f; }
+.gpr-admin-page .gpr-metric--failed { background:#fdecea; color:#c62828; }
+.gpr-admin-page .gpr-metric--skipped { background:#fff4d6; color:#8a5a00; }
+.gpr-admin-page .gpr-table-wrap { overflow:auto; max-width:100%; margin-top:16px; }
+.gpr-admin-page .gpr-results-table { min-width:640px; }
+.gpr-admin-page .gpr-results-table th { background:#fff1e6; color:var(--gpr-ink); font-weight:600; }
+.gpr-admin-page .gpr-results-table th, .gpr-admin-page .gpr-results-table td { padding:11px; overflow-wrap:anywhere; }
+.gpr-admin-page .gpr-status--success { background:#e6f3ec; color:#2e6b4f; }
+.gpr-admin-page .gpr-status--failed { background:#fdecea; color:#c62828; }
+.gpr-admin-page .gpr-status--skipped { background:#fff4d6; color:#8a5a00; }
+@media (max-width:782px) {
+ .gpr-admin-page .gpr-head { align-items:flex-start; }
+ .gpr-admin-page .gpr-mascot { width:48px; height:48px; }
+ .gpr-admin-page .gpr-head h1 { font-size:24px; }
+ .gpr-admin-page .gpr-card { padding:16px; }
+ .gpr-admin-page .gpr-summary-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+ .gpr-admin-page .gpr-results-table { display:table; overflow:visible; }
+}
+
+.gpr-admin-page .gpr-progress__status--complete { font-weight: 700; }
+
+.gpr-admin-page .gpr-notify-recipient { display: block; margin: 8px 0; overflow-wrap: anywhere; }
+.gpr-admin-page #gpr-notify-preview { white-space: pre-wrap; overflow-wrap: anywhere; }

@@ -290,12 +290,13 @@ function gpr_reset_single_user( $user, $skip_email_notifications = false ) {
 
 	$mail_sent = wp_mail(
 		$user_object->user_email,
-		__( 'Password Reset', 'group-password-reset' ),
+		gpr_email_subject( __( 'Password Reset', 'group-password-reset' ) ),
 		sprintf(
-			/* translators: 1: display name 2: reset link */
-			__( "Hello %1\$s,\n\nYour password has been reset by a site administrator. Please use the link below to set a new password:\n\n%2\$s\n\nIf you did not expect this change, contact the site administrator immediately.", 'group-password-reset' ),
+			/* translators: 1: display name 2: reset link 3: site URL */
+			__( "Hello %1\$s,\n\nYour password on %3\$s has been reset by a site administrator. Please use the link below to set a new password:\n\n%2\$s\n\nIf you did not expect this change, contact the site administrator immediately.", 'group-password-reset' ),
 			$user_object->display_name,
-			$reset_link
+			$reset_link,
+			home_url( '/' )
 		)
 	);
 
@@ -314,7 +315,7 @@ function gpr_reset_single_user( $user, $skip_email_notifications = false ) {
 		'email'    => $user_object->user_email,
 		'role'     => gpr_format_user_role_label( $user_object ),
 		'status'   => 'success',
-		'message'  => __( 'Password reset email sent.', 'group-password-reset' ),
+		'message'  => __( 'Password reset completed. Reset-link email accepted for sending.', 'group-password-reset' ),
 	);
 }
 
@@ -406,6 +407,7 @@ function gpr_build_results_payload( $job, $mode, $results = array(), $details_av
 }
 
 function gpr_store_flash_results( $payload ) {
+	gpr_save_notification_summary( $payload );
 	set_transient( gpr_get_results_storage_key(), $payload, GPR_RESULTS_TRANSIENT_TTL );
 }
 

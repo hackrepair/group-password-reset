@@ -21,20 +21,14 @@ function gpr_render_admin_page() {
 	$has_result_rows    = $results_payload && ! empty( $results_payload['results'] );
 	?>
 	<div class="wrap gpr-admin-page">
-		<h1>
-		<?php
-		echo esc_html(
-			sprintf(
-			/* translators: %s: plugin version */
-				__( 'Group Password Reset %s', 'group-password-reset' ),
-				GPR_VERSION
-			)
-		);
-		?>
-		</h1>
-		<p class="gpr-lead">
-			<?php esc_html_e( 'Reset passwords for an explicitly selected scope, then optionally attempt secure reset-link notifications for affected accounts.', 'group-password-reset' ); ?>
-		</p>
+		<header class="gpr-head">
+			<img class="gpr-mascot" src="<?php echo esc_url( GPR_PLUGIN_URL . 'assets/images/hackrepair-heart.png' ); ?>" alt="" width="64" height="64">
+			<div>
+				<p class="gpr-eyebrow"><?php esc_html_e( "The Hack Repair Guy's", 'group-password-reset' ); ?></p>
+				<h1><?php esc_html_e( 'Group Password Reset', 'group-password-reset' ); ?> <span class="gpr-version"><?php echo esc_html( GPR_VERSION ); ?></span></h1>
+				<p class="gpr-lead"><?php esc_html_e( 'Choose whose passwords to reset, decide how to notify them, and review the outcome.', 'group-password-reset' ); ?></p>
+			</div>
+		</header>
 
 		<?php if ( $screen_notice ) : ?>
 			<div class="notice <?php echo esc_attr( $screen_notice['class'] ); ?> gpr-notice">
@@ -42,16 +36,17 @@ function gpr_render_admin_page() {
 			</div>
 		<?php endif; ?>
 
-		<div class="gpr-card">
-			<h2><?php esc_html_e( 'Choose user role for', 'group-password-reset' ); ?></h2>
-			<form id="gpr-reset-form" class="gpr-form" method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
+		<form id="gpr-reset-form" class="gpr-form" method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
 				<?php wp_nonce_field( 'gpr_reset_passwords' ); ?>
 				<input type="hidden" name="action" value="gpr_reset_passwords">
 
+			<section class="gpr-block">
+				<h2 class="gpr-section"><?php esc_html_e( 'Choose accounts', 'group-password-reset' ); ?></h2>
+				<div class="gpr-card">
 				<div class="gpr-field">
-					<label for="gpr-user-role"><?php esc_html_e( 'Choose user role for', 'group-password-reset' ); ?></label>
+					<label for="gpr-user-role"><?php esc_html_e( 'Accounts to reset', 'group-password-reset' ); ?></label>
 					<select id="gpr-user-role" name="gpr_user_role" required>
-						<option value="" selected disabled><?php esc_html_e( 'Choose user role for', 'group-password-reset' ); ?></option>
+						<option value="" selected disabled><?php esc_html_e( 'Select a scope', 'group-password-reset' ); ?></option>
 						<?php foreach ( $roles as $role_key => $role_label ) : ?>
 							<option value="<?php echo esc_attr( $role_key ); ?>"><?php echo esc_html( $role_label ); ?></option>
 						<?php endforeach; ?>
@@ -65,13 +60,12 @@ function gpr_render_admin_page() {
 					<p class="description"><?php esc_html_e( 'Enter usernames separated by commas. These users will be skipped and listed in the results.', 'group-password-reset' ); ?></p>
 				</div>
 
-				<div class="gpr-field gpr-confirmation">
-					<label>
-						<input type="checkbox" name="gpr_confirm_reset" value="1" required>
-						<?php esc_html_e( 'I understand this will invalidate current passwords for the selected users.', 'group-password-reset' ); ?>
-					</label>
-				</div>
 
+				</div>
+			</section>
+			<section class="gpr-block">
+				<h2 class="gpr-section"><?php esc_html_e( 'Notifications and confirmation', 'group-password-reset' ); ?></h2>
+				<div class="gpr-card">
 				<div class="gpr-field gpr-confirmation">
 					<label>
 						<input type="checkbox" name="gpr_skip_email_notifications" value="1">
@@ -82,6 +76,13 @@ function gpr_render_admin_page() {
 
 				<div id="gpr-email-warning" class="gpr-warning">
 					<p><strong><?php esc_html_e( 'Warning:', 'group-password-reset' ); ?></strong> <?php esc_html_e( 'When email mode is enabled, passwords are reset before notification emails are attempted. Mail failures do not roll back the reset and may leave users locked out until they are contacted through another channel.', 'group-password-reset' ); ?></p>
+				</div>
+
+				<div class="gpr-field gpr-confirmation">
+					<label>
+						<input type="checkbox" name="gpr_confirm_reset" value="1" required>
+						<?php esc_html_e( 'I understand this will invalidate current passwords for the selected users.', 'group-password-reset' ); ?>
+					</label>
 				</div>
 
 				<div id="gpr-progress-panel" class="gpr-progress" hidden aria-live="polite">
@@ -104,21 +105,24 @@ function gpr_render_admin_page() {
 					?>
 					</p>
 				</div>
-			</form>
-		</div>
+				</div>
+			</section>
+		</form>
 
-			<div class="gpr-card">
-				<h2><?php esc_html_e( 'What happens', 'group-password-reset' ); ?></h2>
+			<details class="gpr-how">
+				<summary><?php esc_html_e( 'How password resets work', 'group-password-reset' ); ?></summary>
 				<ol class="gpr-steps">
 				<li><?php esc_html_e( 'Choose All users, a specific role, or Administrator (excluding current user).', 'group-password-reset' ); ?></li>
 				<li><?php esc_html_e( 'List any usernames that must be excluded from the reset.', 'group-password-reset' ); ?></li>
 				<li><?php esc_html_e( 'Start the reset. Passwords are invalidated immediately, then secure reset-link emails are attempted unless you choose the no-email option.', 'group-password-reset' ); ?></li>
 				<li><?php esc_html_e( 'Review the summary and per-user results on this screen.', 'group-password-reset' ); ?></li>
 			</ol>
-		</div>
+		</details>
 
-		<div id="gpr-results-panel" class="gpr-card"<?php echo $results_payload ? '' : ' hidden'; ?>>
-			<h2><?php esc_html_e( 'Latest results', 'group-password-reset' ); ?></h2>
+		<div id="gpr-results-panel" class="gpr-block"<?php echo $results_payload ? '' : ' hidden'; ?>>
+			<h2 class="gpr-section"><?php esc_html_e( 'Latest results', 'group-password-reset' ); ?></h2>
+			<div class="gpr-card">
+			<p class="description"><?php esc_html_e( 'Showing the most recent 20 per-user results. Older rows are removed automatically. Summary counts include the entire run.', 'group-password-reset' ); ?></p>
 			<div id="gpr-results-summary">
 				<?php if ( $results_payload ) : ?>
 					<?php gpr_render_summary( $results_payload ); ?>
@@ -127,6 +131,7 @@ function gpr_render_admin_page() {
 			<p id="gpr-results-note" class="description gpr-results-note"<?php echo $results_payload && empty( $results_payload['details_available'] ) ? '' : ' hidden'; ?>>
 				<?php echo esc_html( $results_payload['details_notice'] ?? gpr_get_results_persistence_notice() ); ?>
 			</p>
+			<div class="gpr-table-wrap" tabindex="0" role="region" aria-label="<?php esc_attr_e( 'Password reset results', 'group-password-reset' ); ?>">
 			<table id="gpr-results-table" class="widefat striped gpr-results-table"<?php echo $has_result_rows ? '' : ' hidden'; ?>>
 				<thead>
 					<tr>
@@ -139,13 +144,16 @@ function gpr_render_admin_page() {
 				</thead>
 				<tbody id="gpr-results-body">
 					<?php if ( $has_result_rows ) : ?>
-						<?php foreach ( $results_payload['results'] as $result ) : ?>
+						<?php foreach ( array_slice( $results_payload['results'], -20 ) as $result ) : ?>
 							<?php gpr_render_result_row( $result ); ?>
 						<?php endforeach; ?>
 					<?php endif; ?>
 				</tbody>
 			</table>
+			</div>
+			</div>
 		</div>
+		<?php gpr_render_notification_panel(); ?>
 	</div>
 	<?php
 }
@@ -159,11 +167,11 @@ function gpr_get_screen_notice( $results_payload ) {
 
 	if ( $summary['failed'] > 0 ) {
 		/* translators: 1: successful resets 2: failed resets 3: skipped users */
-		$message = __( 'Password reset finished with %1$d success, %2$d failed, and %3$d skipped.', 'group-password-reset' );
+		$message = __( 'Password reset finished with %1$d successful, %2$d failed, and %3$d skipped.', 'group-password-reset' );
 
 		if ( ! empty( $results_payload['notify_users'] ) ) {
 			/* translators: 1: successful resets 2: failed resets 3: skipped users */
-			$message = __( 'Password reset finished with %1$d success, %2$d failed, and %3$d skipped. Some affected users may not have received email notifications.', 'group-password-reset' );
+			$message = __( 'Password reset finished with %1$d successful, %2$d failed, and %3$d skipped. Check the per-user details for password-reset or notification failures.', 'group-password-reset' );
 		}
 
 		return array(
@@ -182,7 +190,7 @@ function gpr_get_screen_notice( $results_payload ) {
 		'class'   => 'notice-success',
 		'message' => sprintf(
 			/* translators: 1: successful resets 2: skipped users */
-			__( 'Password reset finished with %1$d success and %2$d skipped.', 'group-password-reset' ),
+			__( 'Done! Password reset complete. %1$d successful and %2$d skipped.', 'group-password-reset' ),
 			$summary['success'],
 			$summary['skipped']
 		),
@@ -194,11 +202,11 @@ function gpr_render_summary( $results_payload ) {
 	?>
 	<div class="gpr-summary-grid">
 		<div><strong><?php esc_html_e( 'Scope', 'group-password-reset' ); ?>:</strong> <?php echo esc_html( $results_payload['scope_label'] ); ?></div>
-		<div><strong><?php esc_html_e( 'Matched users', 'group-password-reset' ); ?>:</strong> <?php echo esc_html( (string) $summary['total'] ); ?></div>
-		<div><strong><?php esc_html_e( 'Processed', 'group-password-reset' ); ?>:</strong> <?php echo esc_html( (string) $summary['processed'] ); ?></div>
-		<div><strong><?php esc_html_e( 'Success', 'group-password-reset' ); ?>:</strong> <?php echo esc_html( (string) $summary['success'] ); ?></div>
-		<div><strong><?php esc_html_e( 'Failed', 'group-password-reset' ); ?>:</strong> <?php echo esc_html( (string) $summary['failed'] ); ?></div>
-		<div><strong><?php esc_html_e( 'Skipped', 'group-password-reset' ); ?>:</strong> <?php echo esc_html( (string) $summary['skipped'] ); ?></div>
+		<div class="gpr-metric gpr-metric--matched"><strong><?php echo esc_html( (string) $summary['total'] ); ?></strong><span><?php esc_html_e( 'Matched users', 'group-password-reset' ); ?></span></div>
+		<div class="gpr-metric gpr-metric--processed"><strong><?php echo esc_html( (string) $summary['processed'] ); ?></strong><span><?php esc_html_e( 'Processed', 'group-password-reset' ); ?></span></div>
+		<div class="gpr-metric gpr-metric--success"><strong><?php echo esc_html( (string) $summary['success'] ); ?></strong><span><?php esc_html_e( 'Success', 'group-password-reset' ); ?></span></div>
+		<div class="gpr-metric gpr-metric--failed"><strong><?php echo esc_html( (string) $summary['failed'] ); ?></strong><span><?php esc_html_e( 'Failed', 'group-password-reset' ); ?></span></div>
+		<div class="gpr-metric gpr-metric--skipped"><strong><?php echo esc_html( (string) $summary['skipped'] ); ?></strong><span><?php esc_html_e( 'Skipped', 'group-password-reset' ); ?></span></div>
 	</div>
 	<p><strong><?php esc_html_e( 'Notification mode', 'group-password-reset' ); ?>:</strong> <?php echo esc_html( $results_payload['notification_label'] ?? '' ); ?></p>
 	<p><strong><?php esc_html_e( 'Excluded accounts', 'group-password-reset' ); ?>:</strong> <?php echo esc_html( (string) ( $results_payload['excluded_count'] ?? 0 ) ); ?></p>

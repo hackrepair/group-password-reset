@@ -63,9 +63,10 @@ function gpr_enqueue_admin_assets( $hook_suffix ) {
 			'nonce'     => wp_create_nonce( 'gpr_job_nonce' ),
 			'chunkSize' => GPR_CHUNK_SIZE,
 			'messages'  => array(
+				'sendingSummary'   => __( 'Sending summary…', 'group-password-reset' ),
 				'startError'       => __( 'Unable to start the password reset job.', 'group-password-reset' ),
 				'processError'     => __( 'Unable to continue the password reset job.', 'group-password-reset' ),
-				'complete'         => __( 'Password reset complete.', 'group-password-reset' ),
+				'complete'         => __( 'Done! Password reset complete.', 'group-password-reset' ),
 				'preparingJob'     => __( 'Preparing password reset job…', 'group-password-reset' ),
 				'processingJob'    => __( 'Processing password resets…', 'group-password-reset' ),
 				'noQueuedUsers'    => __( 'No queued users remained after exclusions.', 'group-password-reset' ),

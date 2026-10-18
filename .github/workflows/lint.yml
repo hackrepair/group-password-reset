@@ -21,3 +21,7 @@ jobs:
           php-version: ${{ matrix.php-version }}
       - name: Syntax check
         run: find . -name '*.php' -not -path './vendor/*' -print0 | xargs -0 -n1 php -l
+      - name: Notification and updater regressions
+        run: |
+          php tests/admin-notification.php
+          php tests/update-notices.php

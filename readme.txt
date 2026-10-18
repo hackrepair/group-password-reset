@@ -5,7 +5,7 @@ Donate link: https://hackrepair.com/donations/buy-jim-a-coffee
 Tags: password reset, bulk actions, user management, security
 Requires at least: 6.9.4
 Tested up to: 7.1.3
-Stable tag: 3.4.3
+Stable tag: 3.5.0
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -46,9 +46,10 @@ Compatibility baseline:
 
 1. Download `group-password-reset.zip` from the [GitHub releases page](https://github.com/hackrepair/group-password-reset/releases) and upload it under Plugins > Add New Plugin, or upload the plugin folder to `/wp-content/plugins/`.
 2. Activate the plugin through the `Plugins` screen in WordPress.
-3. Open `Group Password Reset` from the WordPress admin menu.
+3. Open Tools > Group Password Reset. Under Choose accounts, use Accounts to reset to select a scope. No scope is selected by default.
 4. Choose `All users`, a specific role, or `Administrator (excluding current user)`.
-5. Enter any excluded usernames, confirm the reset, and start the run.
+5. Enter any excluded usernames. Under Notifications and confirmation, choose whether to skip emails, acknowledge the password change, and select Reset Passwords.
+6. Review progress and Latest results. The in-page completion message is **Done! Password reset complete.**, displayed in bold. Always review the result counts and details.
 
 == Updates ==
 
@@ -58,9 +59,9 @@ This plugin is not distributed on WordPress.org. It checks its own GitHub releas
 
 This plugin asks GitHub whether a newer release exists, the same way WordPress asks wordpress.org about other plugins.
 
-* **GitHub API** (`api.github.com`): the latest published release of `hackrepair/group-password-reset`, so the Plugins screen can offer an update. Nothing about your site or its users is sent. [Terms of Service](https://docs.github.com/en/site-policy/github-terms/github-terms-of-service) and [Privacy Statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
+* **GitHub API** (`api.github.com`): the latest published release of `hackrepair/group-password-reset`, so the Plugins screen can offer an update. Account lists, passwords, and reset links are not included. Standard connection information, such as the server IP and HTTP headers, is visible to GitHub. [Terms of Service](https://docs.github.com/en/site-policy/github-terms/github-terms-of-service) and [Privacy Statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
 
-The plugin makes no other outside requests.
+Update metadata and release downloads can also use GitHub-hosted URLs. Password-reset notifications use the site’s WordPress email configuration. No additional telemetry is added.
 
 == Support ==
 
@@ -70,13 +71,18 @@ https://www.reddit.com/user/hackrepair/comments/1s8a24b/new_plugin_group_passwor
 
 == Frequently Asked Questions ==
 
+= Can I notify administrators after a reset? =
+
+Yes. In Notify administrators, select administrator accounts, optionally add a note, preview the summary, and choose Email to administrators. This works independently of reset-link emails to affected users. Only your latest completed summary is available, for 15 minutes. Each recipient receives a separate email; acceptance for sending does not guarantee delivery. Wait one minute between sends.
+
+
 = Can I reset passwords for only one role? =
 
 Yes. Choose a specific role from the dropdown before starting the reset.
 
 = Can I reset all users at once? =
 
-Yes. Leave the role selector on `All users`.
+Yes. Explicitly select `All users` under Accounts to reset. The initial Select a scope placeholder does not select any accounts.
 
 = Can I reset administrator accounts without locking myself out? =
 
@@ -88,21 +94,38 @@ Excluded usernames are skipped, shown in the results table, and persisted for th
 
 = What email do users receive? =
 
-Each affected user receives a secure WordPress password reset link so they can choose a new password themselves.
+When notifications are enabled, the plugin attempts to email each affected user a secure WordPress password reset link. No-email mode skips those attempts. Acceptance for sending does not guarantee delivery.
 
 = What happens if email delivery fails? =
 
-Passwords are still reset first. If your mail configuration fails, users may be locked out until they receive a reset link through another channel. Use the no-email option if you plan to communicate manually.
+Passwords are still reset first. If your mail configuration fails, users may be locked out until they receive a reset link through another channel. Use the no-email option if you plan to communicate through another channel.
 
 = How do updates work? =
 
-This plugin is not distributed on the WordPress.org repository, so it checks its own GitHub releases instead. When a new version is published there, the Plugins screen shows an "update available" notice and offers a one-click update. Nothing about your site is sent.
+This plugin is not distributed on the WordPress.org repository, so it checks its own GitHub releases instead. When a new version is published there, the Plugins screen shows an "update available" notice and offers a one-click update. Update requests do not include account lists, passwords, or reset links.
+
+= Why can an update check be temporarily unavailable? =
+
+GitHub may be unreachable or may limit requests from the hosting server’s IP address. The plugin explains the failure and shows a retry time when GitHub provides usable rate-limit information. Technical details are available for troubleshooting. This does not affect password-reset features.
+
+= What does the completion message mean? =
+
+**Done! Password reset complete.** means the in-page run has finished processing. Review the summary and each account’s result: failed rows can include a password change followed by a reset-link or email failure. Email acceptance does not confirm delivery.
 
 = Does the plugin require JavaScript? =
 
 No. JavaScript enables the batched in-page progress UI, but the main reset flow also works through a non-JavaScript fallback.
 
 == Changelog ==
+
+= 3.5.0 =
+* Format administrator summary emails with WordPress-style paragraphs, greeting, site information, results, follow-up guidance, and dashboard link.
+* Limit Latest results to the most recent 20 per-user rows, removing older rows automatically while retaining full-run summary counts.
+* Identify both user reset emails and administrator summaries with [domain] [Group Password Reset] subject tags; include the site URL in reset email text.
+* Add a Notify administrators container: select recipients, preview a completed summary, add a personal note, and send manually. Summaries expire after 15 minutes and exclude passwords, reset links, and per-user results.
+* Match Site Inspector with a branded header, orange section bars, and clearer reset and results cards.
+* Preserve explicit scope selection, password acknowledgement, notification choices, and batched processing.
+* Display **Done! Password reset complete.** in bold and clarify email acceptance and result wording.
 
 = 3.4.3 =
 * Explain temporary update-check failures clearly and move diagnostic errors into Technical details.
