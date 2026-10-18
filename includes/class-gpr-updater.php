@@ -76,6 +76,9 @@ final class GPR_Updater {
 			return;
 		}
 
+		require_once __DIR__ . '/class-gpr-update-notices.php';
+		new GPR_Update_Notices( $this->checker );
+
 		$api->enableReleaseAssets( self::ASSET_PATTERN, Api::REQUIRE_RELEASE_ASSETS );
 
 		// The library normally tries a tag and then a branch when a release is

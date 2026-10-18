@@ -5,7 +5,7 @@ Donate link: https://hackrepair.com/donations/buy-jim-a-coffee
 Tags: password reset, bulk actions, user management, security
 Requires at least: 6.9.4
 Tested up to: 7.1.3
-Stable tag: 3.4.2
+Stable tag: 3.4.3
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -103,6 +103,10 @@ This plugin is not distributed on the WordPress.org repository, so it checks its
 No. JavaScript enables the batched in-page progress UI, but the main reset flow also works through a non-JavaScript fallback.
 
 == Changelog ==
+
+= 3.4.3 =
+* Explain temporary update-check failures clearly and move diagnostic errors into Technical details.
+* Show a retry time for confirmed GitHub rate limits.
 
 = 3.4.2 =
 * Match the compact companion-plugin cards and sidebar layout used by Disable Other Plugin Notices.

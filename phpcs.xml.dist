@@ -9,6 +9,8 @@
 
 	<file>group-password-reset.php</file>
 	<file>includes</file>
+	<!-- Standalone test stubs are not shipped plugin code. -->
+	<exclude-pattern>*/tests/*</exclude-pattern>
 
 	<exclude-pattern>*/vendor/*</exclude-pattern>
 	<!-- Vendored third-party library (Plugin Update Checker by Janis Elsts, MIT licensed); not our code to re-style. -->
