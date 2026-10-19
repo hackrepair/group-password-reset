@@ -142,38 +142,6 @@ Recommended manual scenarios:
 
 GPL-2.0-or-later. See [LICENSE](LICENSE).
 
-## 3.4.0
+## Changelog
 
-View Details now includes **Other THRG Plugins**, a guide to the three companion tools with descriptions and project links.
-
-## 3.4.1
-
-Corrected release packaging to retain the complete bundled updater, including the View Details parser dependencies.
-
-## 3.4.2
-
-View Details uses the approved compact companion-plugin cards, with content contained beside the sidebar and the installed version displayed.
-
-## 3.4.3
-
-Update-check failures now use plain language and clarify that plugin features continue to work. Confirmed GitHub rate limits include a retry time in the site timezone. Technical diagnostics are collapsed. This changes reporting; retry scheduling is unchanged.
-
-## 3.5.0 — interface refresh
-
-Matches the Site Inspector design family with a THRG mascot header, orange section bars, clearer account and notification sections, and status-colored summary tiles. Existing scope selection, exclusions, acknowledgement, notification defaults, reset batching, and server-side fallback remain in place.
-
-The 3.5.0 refresh includes **Choose accounts**, **Notifications and confirmation**, **How password resets work**, and **Latest results**. The completion message **Done! Password reset complete.** is bold.
-
-## 3.5.1
-
-Administrator summary emails use a full-width THRG HTML layout inspired by Site Inspector, with a dark header, warm background, result table, personal note, failure guidance, and dashboard button. Each message includes a plain-text alternative. User reset-link emails retain their plain-text format. The administrator selector includes a tinted panel, responsive recipient list, All administrators control, subject preview, and Send email button.
-
-## 3.5.2
-
-Ship the reconciled packaged readme covering email format, administrator selection, workflow labels, result limits, retention and mail-delivery caveats. Password-reset behavior is unchanged.
-
-## Animated branding
-
-The 2026 THRG heart logo appears in the main plugin header and native View Details banner, matching Site Inspector. Two gentle heartbeat cycles run on opening (4.4 seconds total); reduced-motion preferences and printing disable animation. The details title wraps for smaller screens. Local PNG and scoped CSS require no JavaScript, CDN or animation library. Branding styles load only on this plugin's admin page or its matching information dialog. Source kit: `/Volumes/BACKUP8TB2/plugins/hackrepair-with-heart-animated-2026/plugin-kit`. Included in release 3.5.3.
-
-Release 3.5.3: refreshed 2026 THRG heart branding, two heartbeat cycles on opening, reduced-motion/print support, and a wrapping native View Details banner. Assets are bundled locally. Consider the Codex Security review reminder before future changes.
+See the **Changelog** section of [`readme.txt`](readme.txt).
