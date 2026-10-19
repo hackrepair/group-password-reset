@@ -5,7 +5,7 @@ Donate link: https://hackrepair.com/donations/buy-jim-a-coffee
 Tags: password reset, bulk actions, user management, security
 Requires at least: 6.9.4
 Tested up to: 7.1.3
-Stable tag: 3.5.1
+Stable tag: 3.5.2
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -131,6 +131,11 @@ GitHub may be unreachable or may limit requests from the hosting server’s IP a
 No. JavaScript enables the batched in-page progress UI, but the main reset flow also works through a non-JavaScript fallback.
 
 == Changelog ==
+
+= 3.5.2 =
+* Update packaged documentation for the HTML summary email, recipient selection, Send email workflow, subject tags, latest-20-row results, and summary retention.
+* Clarify email acceptance versus delivery and current privacy and validation boundaries. No password-reset behavior changes.
+
 
 = 3.5.1 =
 * Add a full-width branded HTML administrator summary email with personalized greeting, result table, personal note, failure guidance, dashboard button, and plain-text alternative.

@@ -1,9 +1,9 @@
 # Group Password Reset project
 
-Current published release: **3.5.1**, tag `v3.5.1`, release commit `d2cb6c7`, published October 18, 2026.
+Current release: **3.5.2**, tag `v3.5.2`, approved for publication October 18, 2026.
 
 Repository: https://github.com/hackrepair/group-password-reset
-Release: https://github.com/hackrepair/group-password-reset/releases/tag/v3.5.1
+Release: https://github.com/hackrepair/group-password-reset/releases/tag/v3.5.2
 
 ## Current interface and behavior
 
@@ -52,3 +52,7 @@ October 18 documentation audit: current workflow labels, feature lists, email/se
 - `docs/history/3.5.0-3.5.1-development-notes.md`: intermediate plans and review log, preserved as historical evidence.
 - `docs/mockup/`: original 3.5.0 design proposal and screenshot; not a current feature reference or shipped UI.
 - `releases/`: historical release notes; 3.5.1 describes the latest published feature set.
+
+## 3.5.2 release
+
+User approved versioning, packaging and publication of both plugins. The 3.5.2 release ships the documentation audit corrections that were deliberately excluded from the existing 3.5.1 asset. No reset-engine or mail-behavior changes. Prior audit-only/no-release notes describe that earlier stage.

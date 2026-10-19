@@ -6,7 +6,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-3.5.1-b34700?style=flat-square" alt="Version 3.5.1">
+  <img src="https://img.shields.io/badge/version-3.5.2-b34700?style=flat-square" alt="Version 3.5.2">
   <img src="https://img.shields.io/badge/WordPress-6.9.4%2B-21759b?style=flat-square&logo=wordpress&logoColor=white" alt="WordPress 6.9.4+">
   <img src="https://img.shields.io/badge/tested%20up%20to-7.1.3-21759b?style=flat-square" alt="Tested up to WordPress 7.1.3">
   <img src="https://img.shields.io/badge/PHP-7.4%2B-777bb4?style=flat-square&logo=php&logoColor=white" alt="PHP 7.4+">
@@ -19,7 +19,7 @@
 
 ---
 
-**Current release: 3.5.1.** See the [release notes](releases/v3.5.1.md) for changes and validation scope.
+**Current release: 3.5.2.** See the [release notes](releases/v3.5.2.md) for changes and validation scope.
 
 ## Requirements
 
@@ -167,3 +167,7 @@ The 3.5.0 refresh includes **Choose accounts**, **Notifications and confirmation
 ## 3.5.1
 
 Administrator summary emails use a full-width THRG HTML layout inspired by Site Inspector, with a dark header, warm background, result table, personal note, failure guidance, and dashboard button. Each message includes a plain-text alternative. User reset-link emails retain their plain-text format. The administrator selector includes a tinted panel, responsive recipient list, All administrators control, subject preview, and Send email button.
+
+## 3.5.2
+
+Ship the reconciled packaged readme covering email format, administrator selection, workflow labels, result limits, retention and mail-delivery caveats. Password-reset behavior is unchanged.
