@@ -40,6 +40,8 @@ function gpr_enqueue_admin_assets( $hook_suffix ) {
 		return;
 	}
 
+	wp_enqueue_style( 'gpr-brand', GPR_PLUGIN_URL . 'assets/brand/thrg-brand.css', array(), gpr_get_asset_version( 'assets/brand/thrg-brand.css' ) );
+
 	wp_enqueue_style(
 		'gpr-admin-styles',
 		GPR_PLUGIN_URL . 'assets/css/admin.css',

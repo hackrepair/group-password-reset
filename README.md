@@ -19,7 +19,7 @@
 
 ---
 
-**Current release: 3.5.2.** See the [release notes](releases/v3.5.2.md) for changes and validation scope.
+**Current release: 3.5.2.** See the [release notes](releases/v3.5.3.md) for changes and validation scope.
 
 ## Requirements
 
@@ -171,3 +171,9 @@ Administrator summary emails use a full-width THRG HTML layout inspired by Site 
 ## 3.5.2
 
 Ship the reconciled packaged readme covering email format, administrator selection, workflow labels, result limits, retention and mail-delivery caveats. Password-reset behavior is unchanged.
+
+## Animated branding
+
+The 2026 THRG heart logo appears in the main plugin header and native View Details banner, matching Site Inspector. Two gentle heartbeat cycles run on opening (4.4 seconds total); reduced-motion preferences and printing disable animation. The details title wraps for smaller screens. Local PNG and scoped CSS require no JavaScript, CDN or animation library. Branding styles load only on this plugin's admin page or its matching information dialog. Source kit: `/Volumes/BACKUP8TB2/plugins/hackrepair-with-heart-animated-2026/plugin-kit`. Included in release 3.5.3.
+
+Release 3.5.3: refreshed 2026 THRG heart branding, two heartbeat cycles on opening, reduced-motion/print support, and a wrapping native View Details banner. Assets are bundled locally. Consider the Codex Security review reminder before future changes.

@@ -22,7 +22,7 @@ function gpr_render_admin_page() {
 	?>
 	<div class="wrap gpr-admin-page">
 		<header class="gpr-head">
-			<img class="gpr-mascot" src="<?php echo esc_url( GPR_PLUGIN_URL . 'assets/images/hackrepair-heart.png' ); ?>" alt="" width="64" height="64">
+			<img class="gpr-mascot thrg-brand-heart" src="<?php echo esc_url( GPR_PLUGIN_URL . 'assets/brand/thrg-heart-128.png' ); ?>" alt="" width="64" height="64">
 			<div>
 				<p class="gpr-eyebrow"><?php esc_html_e( "The Hack Repair Guy's", 'group-password-reset' ); ?></p>
 				<h1><?php esc_html_e( 'Group Password Reset', 'group-password-reset' ); ?> <span class="gpr-version"><?php echo esc_html( GPR_VERSION ); ?></span></h1>
