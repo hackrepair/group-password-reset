@@ -200,3 +200,5 @@ Latest results retains only the most recent 20 per-user rows in the current run.
 - Local Mailpit setup is documented outside the release tree at `/Volumes/BACKUP8TB2/plugins/local-mailpit/README.md`. Capture is fixture-only and does not establish external delivery or email-client compatibility.
 - Use the existing updater instance when checking live metadata. Creating another instance for the same slug triggers the library's duplicate-slug error.
 - Preserve published ZIPs and tags. Repository-only documentation corrections are included in the next release package; do not silently overwrite a published asset.
+
+Release 3.5.4: ZIP files are normalized to Unix regular-file mode 0644, with an isolated 0600-source regression test (`python3 tests/package-permissions.py`) and build-time verification. Preserve old release ZIPs. Consider the existing Codex Security review reminder separately.
