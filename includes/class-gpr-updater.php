@@ -184,6 +184,10 @@ final class GPR_Updater {
 		$info->requires_php = GPR_REQUIRES_PHP;
 		$info->last_updated = gmdate( 'Y-m-d H:i:s', (int) filemtime( GPR_PLUGIN_FILE ) );
 		$info->sections     = $sections;
+		$info->icons        = array(
+			'1x' => GPR_PLUGIN_URL . 'assets/icon-128x128.png',
+			'2x' => GPR_PLUGIN_URL . 'assets/icon-256x256.png',
+		);
 
 		if ( is_readable( GPR_PLUGIN_DIR . 'assets/images/plugin-banner.png' ) ) {
 			$info->banners = array(
