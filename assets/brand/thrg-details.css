@@ -6,7 +6,10 @@ body #plugin-information-title.with-banner {
     box-sizing: border-box;
     padding: 36px;
     height: 250px;
-    background-image: linear-gradient(120deg, #60A5FB, #402516);
+    background-image: url("../images/plugin-banner.png"), linear-gradient(120deg, #60A5FB, #402516);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 body #plugin-information-title.with-banner::before {
     content: "";
@@ -39,4 +42,15 @@ body #plugin-information-title.with-banner .vignette { display: none; }
 }
 @media (prefers-reduced-motion: reduce), print {
     body #plugin-information-title.with-banner::before { animation: none; transform: none; }
+}
+
+/* The artwork already includes the title and logo; retain an accessible heading. */
+body #plugin-information-title.with-banner::before { display: none; }
+body #plugin-information-title.with-banner h2 {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
 }

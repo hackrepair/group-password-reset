@@ -1,5 +1,5 @@
 <p align="center">
-  <img src=".github/branding/thrg-heart-animated.gif" alt="The Hack Repair Guy heart and wrench logo" width="144" height="144">
+  <img src="assets/images/plugin-banner.png" alt="The Hack Repair Guy’s Group Password Reset" width="772" height="250">
 </p>
 
 <h1 align="center">The Hack Repair Guy's Group Password Reset</h1>

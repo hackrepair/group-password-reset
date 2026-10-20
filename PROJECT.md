@@ -71,3 +71,17 @@ Release 3.5.4: ZIP files are normalized to Unix regular-file mode 0644, with an 
 ## Community support
 
 Questions, ideas and community help: https://github.com/hackrepair/group-password-reset/discussions. Reproducible bugs: https://github.com/hackrepair/group-password-reset/issues. Security reports stay private. GitHub Discussions is enabled; Reddit is no longer the support destination. Documentation and support-link updates are committed for future packages without replacing published release assets.
+
+
+## View Details banner correction — October 20, 2026
+
+The packaged banner existed, but was added only by the local metadata fallback. Successful GitHub details responses could omit it. The own-plugin companion filter now attaches the installed banner to successful details responses too, while preserving sections and other plugins' metadata. This is a pending source correction; no version bump or release is authorized by this report.
+
+The details stylesheet also replaced the artwork with its gradient/mascot. It now layers the original banner above the gradient and hides duplicate visual title/logo while retaining an accessible heading. Standalone banner regression and shared PHPCS pass.
+
+Zendogs received the source and stylesheet corrections with recoverable copies in `/tmp/gpr-companion-before-banner-fix.php` and `/tmp/gpr-details-before-banner-fix.css`. Native details metadata now supplies the banner. Host HTTP checks return 200 and image bytes match source. The details stylesheet uses its modification time in the version query to avoid reusing the old gradient-only CSS. No passwords, settings or emails were changed; no package or release was created.
+
+
+## GitHub banner presentation — October 20, 2026
+
+The README now shows the original Group Password Reset banner above the title, replacing the animated heart in that location. It references the existing packaged artwork directly, avoiding another image copy. The matching View Details corrections and regression are committed with this presentation update for the next release; the published 3.6.0 package and tag remain unchanged.
