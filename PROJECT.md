@@ -1,6 +1,6 @@
 # Group Password Reset project
 
-Current release candidate: **3.6.1**, tag `v3.6.1`, approved for publication October 20, 2026.
+Current release: **3.6.1**, tag `v3.6.1`, published and verified October 20, 2026.
 
 Repository: https://github.com/hackrepair/group-password-reset
 Release: https://github.com/hackrepair/group-password-reset/releases/tag/v3.6.1
@@ -85,3 +85,14 @@ Zendogs received the source and stylesheet corrections with recoverable copies i
 ## GitHub banner presentation — October 20, 2026
 
 The README now shows the original Group Password Reset banner above the title, replacing the animated heart in that location. It references the existing packaged artwork directly, avoiding another image copy. The matching View Details corrections and regression are committed with this presentation update for the next release; the published 3.6.0 package and tag remain unchanged.
+
+
+## 3.6.1 release verification — October 20, 2026
+
+Published latest release: https://github.com/hackrepair/group-password-reset/releases/tag/v3.6.1. Release/tag commit `4615981a25a1311f6917b045246345423f97297a`. Asset `group-password-reset.zip`, 509009 bytes, 141 files. SHA-256 `be635b4342b74f6b3e3c07c1ba510d8e6fdbcd8a05fb458496953cf0cae37555` matches the local package, GitHub asset digest and freshly downloaded ZIP. Previous local packages were retained in dist/archive; older releases/tags remain unchanged.
+
+Shared PHPCS passes all 12 configured files; notification, update-message, own-plugin banner/isolation and restrictive-source package-permission regressions pass. All 54 packaged PHP files lint clean; admin JavaScript syntax and ZIP/source integrity pass. GitHub PHP 7.4/8.3 checks passed runs 39514044227 and 39514044635, including the new banner regression. CI: https://github.com/hackrepair/group-password-reset/actions/runs/39514044635.
+
+Zendogs' registered updater anonymously discovered the exact published 3.6.1 ZIP and WordPress bulk upgrade installed it from GitHub. Activation and saved excluded usernames/audit schema options were preserved. All 141 installed files match the downloaded published ZIP. Prior installation backed up at `/tmp/gpr-before-published-3.6.1.tgz` in the container.
+
+Ego Lite native View Details shows version 3.6.1, the original artwork in front of the gradient and the expected Description, Changelog, Installation, FAQ and Other THRG Plugins tabs. Screenshot `/tmp/gpr-361-view-details.png` visually inspected. Browser task closed after verification. No real passwords were reset and no emails were sent for this presentation-only update; broader reset/email runtime limits documented above remain applicable. This documentation follow-up does not replace the published asset or move its tag.
