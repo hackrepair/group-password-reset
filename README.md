@@ -106,12 +106,6 @@ This plugin is not on the WordPress.org repository, so it checks its own GitHub 
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines and [MAINTAINING.md](MAINTAINING.md) for the repository QA checklist, WordPressCS commands, release packaging rules, and local test environment notes.
 
-## Support
-
-- Issues and feature requests: [GitHub issues](https://github.com/hackrepair/group-password-reset/issues)
-- Security reports: [report privately](https://github.com/hackrepair/group-password-reset/security/advisories/new) (see [SECURITY.md](SECURITY.md))
-- Reddit support/discussion thread: [Group Password Reset support post](https://www.reddit.com/user/hackrepair/comments/1s8a24b/new_plugin_group_password_reset_bulk_password/)
-
 ## Testing Notes
 
 Baseline compatibility target:
@@ -141,6 +135,14 @@ Recommended manual scenarios:
 - Run `php tests/admin-notification.php`, `php tests/update-notices.php`, PHP/JavaScript syntax checks, and shared PHPCS.
 - Consider a Codex Security diff review; do not run the security plugin automatically.
 - Confirm the reset flow works on WordPress 6.9.4 and 7.1.x with PHP 7.4 and with PHP 8.3, plus any newer local prerelease builds used for forward-compatibility checks.
+
+## Author and support
+
+**[Jim Walker](https://hackrepair.com/)** — The Hack Repair Guy — author and maintainer.
+
+[Report a bug or request a feature](https://github.com/hackrepair/group-password-reset/issues) · [Security reporting](SECURITY.md) · [Buy Jim a coffee](https://hackrepair.com/donations/buy-jim-a-coffee)
+
+[Community discussion](https://www.reddit.com/user/hackrepair/comments/1s8a24b/new_plugin_group_password_reset_bulk_password/) · [Report a security issue privately](https://github.com/hackrepair/group-password-reset/security/advisories/new)
 
 ## License
 
