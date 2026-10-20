@@ -154,7 +154,20 @@ function gpr_render_admin_page() {
 			</div>
 		</div>
 		<?php gpr_render_notification_panel(); ?>
+		<?php gpr_render_support_panel(); ?>
 	</div>
+	<?php
+}
+
+function gpr_render_support_panel() {
+	?>
+	<section id="support" class="gpr-block" aria-labelledby="gpr-support-title">
+		<h2 id="gpr-support-title" class="gpr-section"><?php esc_html_e( 'Support', 'group-password-reset' ); ?></h2>
+		<div class="gpr-card">
+			<p>&#9749; <?php echo wp_kses_post( __( 'If you found this plugin helpful, please <a href="https://hackrepair.com/donations/buy-jim-a-coffee" target="_blank" rel="noopener">buy Jim a cup of coffee?</a>', 'group-password-reset' ) ); ?></p>
+			<p><span class="dashicons dashicons-editor-help" aria-hidden="true"></span> <?php echo wp_kses_post( __( 'Questions and Feedback: For questions, ideas, or help with the plugin, <a href="https://github.com/hackrepair/group-password-reset/discussions" target="_blank" rel="noopener">visit GitHub Discussions</a>.', 'group-password-reset' ) ); ?></p>
+		</div>
+	</section>
 	<?php
 }
 
