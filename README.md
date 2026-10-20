@@ -134,7 +134,7 @@ Recommended manual scenarios:
 
 [Report a security issue privately](https://github.com/hackrepair/group-password-reset/security/advisories/new)
 
-### Notes
+### Thank you
 
 GitHub updates use [Plugin Update Checker](https://github.com/YahnisElsts/plugin-update-checker) by Janis Elsts, bundled under the MIT license.
 
