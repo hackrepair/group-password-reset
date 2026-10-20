@@ -1,9 +1,9 @@
 # Group Password Reset project
 
-Current release: **3.5.2**, tag `v3.5.2`, approved for publication October 18, 2026.
+Current release: **3.6.0**, tag `v3.6.0`, packaged October 20, 2026 and awaiting publication.
 
 Repository: https://github.com/hackrepair/group-password-reset
-Release: https://github.com/hackrepair/group-password-reset/releases/tag/v3.5.2
+Release: https://github.com/hackrepair/group-password-reset/releases/tag/v3.6.0
 
 ## Current interface and behavior
 
@@ -18,6 +18,7 @@ Release: https://github.com/hackrepair/group-password-reset/releases/tag/v3.5.2
 - Summary sending requires manage_options, a nonce, an owned current summary, and current administrator recipients with valid addresses (up to 100 shown). Each receives a separate message; repeat sends are throttled for one minute.
 - Administrator summaries use full-width branded HTML with personalized greeting, note, count table, notification mode, conditional failure guidance, dashboard button, and privacy footer. A plain-text alternative is included. The dashboard button does not imply stored report history.
 - User reset-link emails remain plain text. Subjects use `[domain] [Group Password Reset] Password Reset` and `[domain] [Group Password Reset] Password Reset Summary`; both bodies identify the site URL.
+- **Support** container at the bottom of the screen (anchor `#support`): the buy-Jim-a-coffee link and a GitHub Discussions link, same wording as Post Update Email Notifier. Rendered by `gpr_render_support_panel()` in `includes/admin-views.php`.
 - Job start/completion audit records retain actor, scope and count data without target-account lists or reset secrets.
 
 ## Implementation map

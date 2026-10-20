@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-3.5.5-b34700?style=flat-square" alt="Version 3.5.5">
+  <img src="https://img.shields.io/badge/version-3.6.0-b34700?style=flat-square" alt="Version 3.6.0">
   <img src="https://img.shields.io/badge/WordPress-6.9.4%2B-21759b?style=flat-square&logo=wordpress&logoColor=white" alt="WordPress 6.9.4+">
   <img src="https://img.shields.io/badge/tested%20up%20to-7.1.3-21759b?style=flat-square" alt="Tested up to WordPress 7.1.3">
   <img src="https://img.shields.io/badge/PHP-7.4%2B-777bb4?style=flat-square&logo=php&logoColor=white" alt="PHP 7.4+">
@@ -23,7 +23,7 @@
 
 ---
 
-**Current release: 3.5.5** See the [release notes](releases/v3.5.5.md) for changes and validation scope.
+**Current release: 3.6.0** See the [release notes](releases/v3.6.0.md) for changes and validation scope.
 
 ## Requirements
 
@@ -48,6 +48,7 @@ Administrator access to the target site is also required.
 - Select recipients individually or with All administrators; add an optional note and review the subject
 - Identify plugin emails with `[domain] [Group Password Reset]` subject tags
 - Write audit-log entries for reset job creation and completion
+- Show a Support container at the bottom of the screen with the coffee link and GitHub Discussions
 - Check this plugin's own GitHub releases for updates, so the Plugins screen offers a one-click update
 
 ## How It Works
