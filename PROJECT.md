@@ -66,3 +66,7 @@ Branding validation: shared PHPCS passed (12 files); administrator notification 
 Release 3.5.3: refreshed 2026 THRG heart branding, two heartbeat cycles on opening, reduced-motion/print support, and a wrapping native View Details banner. Assets are bundled locally. Consider the Codex Security review reminder before future changes.
 
 Release 3.5.4: ZIP files are normalized to Unix regular-file mode 0644, with an isolated 0600-source regression test (`python3 tests/package-permissions.py`) and build-time verification. Preserve old release ZIPs. Consider the existing Codex Security review reminder separately.
+
+## Community support
+
+Questions, ideas and community help: https://github.com/hackrepair/group-password-reset/discussions. Reproducible bugs: https://github.com/hackrepair/group-password-reset/issues. Security reports stay private. GitHub Discussions is enabled; Reddit is no longer the support destination. Documentation and support-link updates are committed for future packages without replacing published release assets.

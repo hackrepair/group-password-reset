@@ -2,7 +2,8 @@
 
 Thanks for helping improve Group Password Reset.
 
-- Report bugs and request features through [GitHub issues](https://github.com/hackrepair/group-password-reset/issues).
+- Ask questions and suggest features in [GitHub Discussions](https://github.com/hackrepair/group-password-reset/discussions).
+- Report reproducible bugs through [GitHub issues](https://github.com/hackrepair/group-password-reset/issues).
 - Report security problems privately. See [SECURITY.md](SECURITY.md).
 - Follow WordPress coding standards: `/Volumes/BACKUP8TB2/plugins/PHPCS/run-phpcs.sh "$PWD"`
 - Run `php tests/admin-notification.php` and `php tests/update-notices.php` for notification or updater changes.

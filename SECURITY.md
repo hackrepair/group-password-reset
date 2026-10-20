@@ -2,7 +2,7 @@
 
 ## Reporting a Vulnerability
 
-Please do not open public GitHub issues for security vulnerabilities.
+Please do not open public GitHub issues or discussions for security vulnerabilities.
 
 Report privately through GitHub:
 https://github.com/hackrepair/group-password-reset/security/advisories/new

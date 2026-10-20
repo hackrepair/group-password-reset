@@ -1,4 +1,5 @@
 ===== The Hack Repair Guy's Group Password Reset =====
+Support link: https://github.com/hackrepair/group-password-reset/discussions
 
 Contributors: hackrepair, tvcnet
 Donate link: https://hackrepair.com/donations/buy-jim-a-coffee
@@ -68,9 +69,14 @@ Update metadata and release downloads can also use GitHub-hosted URLs. User rese
 
 == Support ==
 
-For support, feedback, or discussion, visit:
+For questions, ideas and community support, visit GitHub Discussions:
+https://github.com/hackrepair/group-password-reset/discussions
 
-https://www.reddit.com/user/hackrepair/comments/1s8a24b/new_plugin_group_password_reset_bulk_password/
+Report reproducible bugs through Issues:
+https://github.com/hackrepair/group-password-reset/issues
+
+Report security concerns privately using the repository security policy:
+https://github.com/hackrepair/group-password-reset/blob/main/SECURITY.md
 
 == Frequently Asked Questions ==
 
