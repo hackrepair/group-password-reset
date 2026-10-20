@@ -89,19 +89,8 @@ Summary sending is independent of reset-link notifications and works after a res
 - `includes/email.php` builds domain/plugin subject tags; `includes/email-template.php` renders the HTML administrator summary.
 - `includes/audit-log.php` owns the audit table schema and event logging.
 - `includes/class-gpr-updater.php` points WordPress at this plugin's GitHub releases and fills the update details window from `readme.txt`.
-- `plugin-update-checker/` is the vendored third-party update library (see Updates below).
 - `assets/js/admin.js` progressively enhances the admin screen with async batching.
 - `assets/css/admin.css` applies the Site Inspector design family to this plugin’s admin page.
-
-## Updates
-
-This plugin is not on the WordPress.org repository, so it checks its own GitHub releases (`hackrepair/group-password-reset`) the way WordPress checks wordpress.org for everything else. When a new version is published there, the Plugins screen shows an "update available" notice and offers a one-click update.
-
-- Only a release whose tag is `v` plus the version (for example `v3.5.1`) and which carries an uploaded `group-password-reset.zip` asset is offered. GitHub's auto-generated source archive is never used, because it would rename the plugin folder and deactivate the plugin.
-- Pre-releases are skipped.
-- Update discovery and metadata retrieval contact GitHub; installation downloads the published ZIP. Account lists, passwords, and reset links are not included in update requests. These requests expose standard connection information, such as the server IP and HTTP headers. There is no added telemetry.
-- Manual update failures explain temporary availability problems. Confirmed GitHub rate limits show a retry time; detailed diagnostics are collapsed. This reporting does not enforce a retry cooldown.
-- The update library is [Plugin Update Checker](https://github.com/YahnisElsts/plugin-update-checker) by Janis Elsts (MIT), vendored in `plugin-update-checker/`. It is excluded from PHPCS because it is not our code.
 
 ## Maintainer Notes
 
@@ -144,6 +133,10 @@ Recommended manual scenarios:
 [Questions, ideas and community support](https://github.com/hackrepair/group-password-reset/discussions) · [Report a bug](https://github.com/hackrepair/group-password-reset/issues) · [Security reporting](SECURITY.md) · [Buy Jim a coffee](https://hackrepair.com/donations/buy-jim-a-coffee)
 
 [Report a security issue privately](https://github.com/hackrepair/group-password-reset/security/advisories/new)
+
+### Notes
+
+GitHub updates use [Plugin Update Checker](https://github.com/YahnisElsts/plugin-update-checker) by Janis Elsts, bundled under the MIT license.
 
 ## License
 
