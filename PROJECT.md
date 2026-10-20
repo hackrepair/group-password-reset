@@ -1,9 +1,9 @@
 # Group Password Reset project
 
-Current release: **3.6.0**, tag `v3.6.0`, packaged October 20, 2026 and awaiting publication.
+Current release candidate: **3.6.1**, tag `v3.6.1`, approved for publication October 20, 2026.
 
 Repository: https://github.com/hackrepair/group-password-reset
-Release: https://github.com/hackrepair/group-password-reset/releases/tag/v3.6.0
+Release: https://github.com/hackrepair/group-password-reset/releases/tag/v3.6.1
 
 ## Current interface and behavior
 

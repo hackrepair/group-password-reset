@@ -6,7 +6,7 @@ Donate link: https://hackrepair.com/donations/buy-jim-a-coffee
 Tags: password reset, bulk actions, user management, security
 Requires at least: 6.9.4
 Tested up to: 7.1.3
-Stable tag: 3.6.0
+Stable tag: 3.6.1
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -137,6 +137,10 @@ GitHub may be unreachable or may limit requests from the hosting server’s IP a
 No. JavaScript enables the batched in-page progress UI, but the main reset flow also works through a non-JavaScript fallback.
 
 == Changelog ==
+
+= 3.6.1 =
+* Restored the original View Details banner when remote metadata omits it.
+* Display the original artwork above the gradient, with refreshed stylesheet caching.
 
 = 3.6.0 =
 * Added a Support container at the bottom of the Group Password Reset screen: a link to buy Jim a cup of coffee and a link to GitHub Discussions for questions, ideas and help.
