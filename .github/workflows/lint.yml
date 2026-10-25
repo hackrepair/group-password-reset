@@ -25,4 +25,5 @@ jobs:
         run: |
           php tests/admin-notification.php
           php tests/update-notices.php
+          php tests/companion-plugins.php
           php tests/plugin-details.php
