@@ -1,6 +1,6 @@
 # Group Password Reset project
 
-Current release candidate: **3.6.2**, tag `v3.6.2`, approved October 25, 2026.
+Current release: **3.6.2**, tag `v3.6.2`, published and verified October 25, 2026.
 
 Repository: https://github.com/hackrepair/group-password-reset
 Release: https://github.com/hackrepair/group-password-reset/releases/tag/v3.6.1
@@ -108,3 +108,8 @@ Verification: shared PHPCS and `php tests/companion-plugins.php` pass for this c
 ## 3.6.2 release preparation — October 25, 2026
 
 User approved packaging and publication for the five GitHub-updated plugins. Plugin Archiver is explicitly excluded from this release pass. Version headers/constants, stable tag, README and release notes are aligned at 3.6.2. Release checks and publication results follow below.
+
+
+## 3.6.2 published and verified — October 25, 2026
+
+Published: https://github.com/hackrepair/group-password-reset/releases/tag/v3.6.2. Version metadata, ZIP and published digest agree. Real Zendogs updater discovery/install, retained settings/activation, installed file hashes and native View Details verified. All local checks passed; CI scope and hashes are recorded in `docs/release-verification-3.6.2.md`. Older packages/releases retained. Plugin Archiver was excluded from this release pass.
