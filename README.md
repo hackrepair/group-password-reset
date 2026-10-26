@@ -132,7 +132,6 @@ Recommended manual scenarios:
 
 [Questions, ideas and community support](https://github.com/hackrepair/group-password-reset/discussions) · [Report a bug](https://github.com/hackrepair/group-password-reset/issues) · [Security reporting](SECURITY.md) · [Buy Jim a coffee](https://hackrepair.com/donations/buy-jim-a-coffee)
 
-[Report a security issue privately](https://github.com/hackrepair/group-password-reset/security/advisories/new)
 
 ### Thank you
 
