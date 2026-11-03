@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Group Password Reset: reset a whole group of WordPress passwords at once</title>
+<meta name="description" content="Reset WordPress passwords for everyone, one role or just administrators, skip the accounts you choose, and email each person a secure reset link. Free, by The Hack Repair Guy.">
+<link rel="canonical" href="https://hackrepair.github.io/group-password-reset/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="The Hack Repair Guy">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="The Hack Repair Guy's Group Password Reset">
+<meta property="og:description" content="Bulk reset WordPress passwords by role, skip the accounts you choose, and send secure reset links. Free.">
+<meta property="og:url" content="https://hackrepair.github.io/group-password-reset/">
+<meta property="og:image" content="https://hackrepair.github.io/group-password-reset/img/social-card.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The Hack Repair Guy&#x27;s Group Password Reset. Reset WordPress passwords in bulk, by role.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Hack Repair Guy's Group Password Reset">
+<meta name="twitter:description" content="Bulk reset WordPress passwords by role, skip the accounts you choose, and send secure reset links. Free.">
+<meta name="twitter:image" content="https://hackrepair.github.io/group-password-reset/img/social-card.png">
+<meta name="twitter:image:alt" content="The Hack Repair Guy&#x27;s Group Password Reset. Reset WordPress passwords in bulk, by role.">
+<meta name="theme-color" content="#1a110d">
+<link rel="icon" type="image/png" href="img/icon-128.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --night: #150e0b;
+  --night-2: #2a1810;
+  --cream: #faf5ea;
+  --ink: #1c2227;
+  --soft: #555c63;
+  --orange: #f39a3a;
+  --rust: #b8400e;
+  --rust-dark: #962f05;
+  --blue: #1a6fa3;
+  --red: #b3261e; --red-t: #fde4e1;
+  --amber: #7a5200; --amber-t: #fff0c7;
+  --green: #1b6a42; --green-t: #dcefe3;
+  --peach: #fff1e6;
+  --line: #e6dfd2;
+  --display: "Bricolage Grotesque", "Arial Black", "Helvetica Neue", Arial, sans-serif;
+  --text: "Atkinson Hyperlegible", "Segoe UI", system-ui, -apple-system, Helvetica, Arial, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--cream); color: var(--ink); font: 400 1.125rem/1.6 var(--text); -webkit-font-smoothing: antialiased; }
+img { max-width: 100%; display: block; }
+a { color: var(--blue); text-underline-offset: 3px; }
+a:hover { color: var(--rust); }
+:focus-visible { outline: 3px solid #f6b26b; outline-offset: 3px; border-radius: 4px; }
+.wrap { width: min(1160px, 100% - 48px); margin-inline: auto; }
+h1, h2, h3 { font-family: var(--display); font-weight: 800; }
+
+/* Dark top band */
+.dark { position: relative; color: #f4ece0; background: radial-gradient(1100px 700px at 80% 0%, #45251a 0%, var(--night-2) 40%, var(--night) 85%); overflow: hidden; }
+.dark::before { content: ""; position: absolute; inset: 0; background-image: radial-gradient(rgba(243,154,58,.15) 1.2px, transparent 1.4px); background-size: 26px 26px; pointer-events: none; }
+.dark > * { position: relative; }
+.dark a { color: #ffc98e; }
+.dark a:hover { color: #fff; }
+
+.top { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 0; flex-wrap: wrap; }
+.brand { display: flex; align-items: center; gap: 12px; color: #fff !important; text-decoration: none; font: 800 1.05rem/1.1 var(--display); letter-spacing: -.01em; }
+.brand img { width: 42px; height: 42px; }
+.top nav { display: flex; gap: 22px; flex-wrap: wrap; }
+.top nav a { color: #f4ece0; font-weight: 700; font-size: 1rem; }
+.top nav a:hover { color: var(--orange); }
+
+.hero { display: grid; grid-template-columns: minmax(0, 1.02fr) minmax(0, .98fr); gap: 56px; align-items: center; padding: 40px 0 96px; }
+.kicker { margin: 0 0 16px; font: 800 .95rem/1 var(--display); letter-spacing: .14em; text-transform: uppercase; color: var(--orange); }
+h1 { margin: 0 0 22px; font-size: clamp(2.6rem, 5.6vw, 4.5rem); line-height: 1; letter-spacing: -.035em; color: #fff; }
+h1 em { font-style: normal; color: var(--orange); }
+.lede { margin: 0 0 30px; max-width: 33em; font-size: 1.25rem; color: #e6dccd; }
+.actions { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+.btn { display: inline-flex; align-items: center; gap: 12px; min-height: 56px; padding: 0 28px; border-radius: 10px; background: var(--rust); color: #fff !important; text-decoration: none; font: 800 1.15rem/1 var(--display); letter-spacing: -.005em; box-shadow: 0 2px 0 var(--rust-dark), 0 12px 28px -10px rgba(184, 64, 14, .7); transition: transform .12s ease, background .12s ease; }
+.btn:hover { background: var(--rust-dark); transform: translateY(-1px); }
+.btn:active { transform: translateY(1px); }
+.btn svg { width: 22px; height: 22px; flex: none; }
+.text-link { font-weight: 700; }
+.fine { margin: 22px 0 0; max-width: 33em; font-size: .98rem; color: #b9ab98; }
+
+/* Hero scene: what a bot sees */
+.log { width: 100%; max-width: 540px; margin-inline: auto; background: #f0f0f1; color: var(--ink); border-radius: 14px; overflow: hidden; box-shadow: 0 0 0 1px rgba(255,255,255,.07), 0 40px 80px -30px rgba(0,0,0,.85); font-size: 15px; line-height: 1.35; }
+.l-bar { display: flex; align-items: center; gap: 7px; height: 34px; padding: 0 14px; background: #1d2327; }
+.l-bar i { width: 10px; height: 10px; border-radius: 50%; background: #50575e; }
+.l-bar span { margin-left: 10px; color: #a7aaad; font-size: 13px; }
+.l-in { padding: 20px 20px 22px; }
+.l-head { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+.l-head img { width: 48px; height: 48px; }
+.l-head small { display: block; font: 700 10.5px/1 var(--text); letter-spacing: .12em; color: var(--rust); }
+.l-head b { display: block; font: 700 22px/1.15 var(--text); }
+.l-status { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 14px; }
+.l-status div { padding: 9px 12px; border-radius: 8px; background: var(--green-t); color: #1b5a39; font-weight: 700; font-size: 13px; animation: rise .5s both; }
+.l-status div:nth-child(1) { animation-delay: .3s; } .l-status div:nth-child(2) { animation-delay: .45s; } .l-status div:nth-child(3) { animation-delay: .6s; }
+.l-status b { display: block; font: 800 20px/1.1 var(--display); }
+.l-list { display: grid; gap: 7px; }
+.l-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 9px 12px; background: #fff; border: 1px solid #dcdcde; border-radius: 6px; font: 600 13.5px/1.3 var(--mono); animation: rise .45s both; }
+.l-row:nth-child(1) { animation-delay: 1.1s; } .l-row:nth-child(2) { animation-delay: 1.35s; } .l-row:nth-child(3) { animation-delay: 1.6s; }
+.l-row:nth-child(4) { animation-delay: 1.85s; } .l-row:nth-child(5) { animation-delay: 2.1s; } .l-row:nth-child(6) { animation-delay: 2.35s; }
+.l-row span:first-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.chip { flex: none; padding: 4px 9px; border-radius: 999px; font: 700 11.5px/1 var(--text); }
+.chip.r { background: var(--red-t); color: #a1261d; } .chip.g { background: var(--green-t); color: #1b5a39; }
+@keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+/* Sections */
+main section { padding: 96px 0 0; }
+h2 { margin: 0 0 14px; font-size: clamp(1.9rem, 3.8vw, 2.7rem); line-height: 1.06; letter-spacing: -.028em; }
+.sub { margin: 0 0 36px; max-width: 37em; color: var(--soft); }
+
+/* Doors */
+.doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; margin: 0; padding: 0; list-style: none; }
+.doors li { padding: 24px 22px; border-radius: 14px; background: #fff; border: 1px solid var(--line); box-shadow: 0 1px 0 rgba(28,34,39,.04); }
+.doors .ic { display: grid; place-items: center; width: 52px; height: 52px; margin-bottom: 16px; border-radius: 12px; background: var(--peach); }
+.doors svg { width: 30px; height: 30px; stroke: var(--rust); fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.doors h3 { margin: 0 0 6px; font-size: 1.2rem; line-height: 1.2; letter-spacing: -.015em; }
+.doors p { margin: 0; font-size: 1rem; color: var(--soft); }
+
+/* Checklist */
+.checks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 48px; margin: 0; padding: 30px 34px; list-style: none; background: #fff; border: 1px solid var(--line); border-left: 6px solid var(--rust); border-radius: 12px; }
+.checks li { position: relative; padding-left: 34px; }
+.checks li::before { content: ""; position: absolute; left: 2px; top: .38em; width: 16px; height: 9px; border: solid var(--green); border-width: 0 0 3px 3px; transform: rotate(-45deg); }
+.checks li.opt::before { border-color: #c79a3a; }
+.checks small { color: var(--soft); }
+
+/* Features */
+.feats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
+.feat { display: flex; flex-direction: column; border-radius: 14px; background: #fff; border: 1px solid var(--line); overflow: hidden; }
+.feat .demo { padding: 20px; background: #f3efe7; border-bottom: 1px solid var(--line); font-size: .92rem; line-height: 1.4; min-height: 190px; }
+.feat .txt { padding: 22px 24px 26px; }
+.feat h3 { margin: 0 0 8px; font-size: 1.35rem; line-height: 1.15; letter-spacing: -.015em; }
+.feat p { margin: 0; color: #2f373d; }
+.card { background: #fff; border: 1px solid #dcdcde; border-left: 4px solid var(--green); border-radius: 8px; padding: 12px 14px; }
+.card b { display: block; margin-bottom: 6px; }
+.card .ta { padding: 8px 10px; border: 1px solid #c3c4c7; border-radius: 4px; font: .85rem/1.5 var(--mono); background: #fcfcfc; }
+.card .ok { margin-top: 8px; color: var(--green); font-weight: 700; font-size: .85rem; }
+.mail { background: #fff; border: 1px solid #dcdcde; border-radius: 8px; overflow: hidden; }
+.mail .subj { padding: 10px 12px; font-weight: 700; border-bottom: 1px solid var(--line); }
+.mail .bd { padding: 10px 12px; color: var(--soft); }
+.mail .bt { display: flex; gap: 8px; padding: 0 12px 12px; }
+.mail .bt span { padding: 5px 12px; border-radius: 5px; font-weight: 700; font-size: .85rem; border: 2px solid var(--rust); color: var(--rust); }
+.mail .bt span:first-child { background: var(--green); border-color: var(--green); color: #fff; }
+.ask { background: var(--amber-t); border: 1px solid #e6c46a; border-left: 4px solid #d39b1f; border-radius: 8px; padding: 12px 14px; }
+.ask b { display: block; margin-bottom: 6px; }
+.ask .go { display: inline-block; margin-top: 10px; padding: 6px 14px; border-radius: 5px; background: var(--rust); color: #fff; font-weight: 700; font-size: .85rem; }
+
+/* Trust band */
+.trust { margin-top: 96px; padding: 72px 0; }
+.trust .grid { display: grid; grid-template-columns: auto 1fr; gap: 40px; align-items: start; }
+.trust img { width: 120px; height: 120px; }
+.trust h2 { color: #fff; }
+.trust p { max-width: 42em; color: #e1d6c6; margin: 0 0 16px; }
+.pills { display: flex; flex-wrap: wrap; gap: 10px; margin: 0 0 26px; padding: 0; list-style: none; }
+.pills li { padding: 8px 16px; border-radius: 999px; background: rgba(243,154,58,.14); border: 1px solid rgba(243,154,58,.35); color: #ffd7ac; font-weight: 700; font-size: 1rem; }
+.trust .small { font-size: 1rem; color: #b9ab98; }
+
+/* Extra + install */
+.extra { padding: 30px 34px; border-radius: 14px; background: #fff; border: 1px dashed #c9a58c; }
+.extra h3 { margin: 0 0 6px; font-size: 1.35rem; letter-spacing: -.015em; }
+.extra p { margin: 0; max-width: 46em; color: #2f373d; }
+.steps { margin: 0 0 30px; padding: 0; list-style: none; counter-reset: step; display: grid; gap: 20px; max-width: 40em; }
+.steps li { position: relative; padding-left: 58px; counter-increment: step; }
+.steps li::before { content: counter(step); position: absolute; left: 0; top: -2px; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--rust); color: #fff; font: 800 1.15rem/1 var(--display); }
+.below { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; margin-top: 30px; }
+.version { margin: 0; font-size: .98rem; color: var(--soft); }
+code { padding: 1px 6px; border-radius: 4px; background: #efe8d6; font: .92em/1.4 var(--mono); }
+.dark code { background: rgba(243,154,58,.18); color: #ffd7ac; }
+
+/* Footer */
+footer { margin-top: 96px; padding: 44px 0 56px; border-top: 2px solid var(--ink); }
+.foot { display: flex; align-items: flex-start; justify-content: space-between; gap: 28px; flex-wrap: wrap; }
+.foot p { margin: 0 0 6px; }
+.foot .small { font-size: .95rem; color: var(--soft); max-width: 32em; }
+.foot nav { display: flex; gap: 22px; flex-wrap: wrap; }
+.foot nav a { font-weight: 700; }
+
+@media (max-width: 980px) {
+  .hero { grid-template-columns: 1fr; gap: 44px; padding-bottom: 72px; }
+  .doors { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .feats { grid-template-columns: 1fr; }
+  .trust .grid { grid-template-columns: 1fr; gap: 20px; }
+  main section { padding-top: 72px; }
+}
+@media (max-width: 600px) {
+  body { font-size: 1.05rem; }
+  .wrap { width: min(1160px, 100% - 32px); }
+  .top nav { gap: 16px; }
+  .doors, .checks { grid-template-columns: 1fr; }
+  .checks { padding: 22px 20px; }
+  .l-in { padding: 14px; }
+  .l-status b { font-size: 17px; }
+  .l-row { font-size: 12px; }
+  .btn { width: 100%; justify-content: center; }
+  .trust { padding: 56px 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .l-status div, .l-row { animation: none; }
+  .btn { transition: none; }
+}
+
+.chip.a { background: var(--amber-t); color: #7a5200; }
+.chip.n { background: #ece8df; color: #555c63; }
+.l-status.two { grid-template-columns: repeat(2, 1fr); }
+</style>
+</head>
+<body>
+<div class="dark">
+  <div class="wrap">
+    <header class="top">
+      <a class="brand" href="./"><img src="img/heart-256.png" alt="" width="42" height="42">The Hack Repair Guy's Group Password Reset</a>
+      <nav aria-label="Site"><a href="#why">When you need it</a><a href="#features">What it does</a><a href="#install">Install</a><a href="https://github.com/hackrepair/group-password-reset">GitHub</a><a href="https://github.com/hackrepair/group-password-reset/discussions">Support</a></nav>
+    </header>
+
+    <div class="hero">
+      <div>
+        <p class="kicker">Free WordPress password reset tool</p>
+        <h1>Reset a whole group's passwords. <em>Safely, in one go.</em></h1>
+        <p class="lede">After a break-in, a staff change or a scare, you need a lot of passwords reset, and you need it done right. Group Password Reset works through everyone, one role or just the administrators, skips the accounts you exclude, and can email each person a secure reset link instead of a raw password.</p>
+        <div class="actions">
+          <a class="btn" data-download href="https://github.com/hackrepair/group-password-reset/releases/latest"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11m0 0-5-5m5 5 5-5M5 20h14"/></svg><span data-download-label>Download Group Password Reset</span></a>
+          <a class="text-link" href="#features">See what it does</a>
+        </div>
+        <p class="fine">Free and open source (GPL-2.0-or-later). Needs WordPress 6.9.4 or newer and PHP 7.4 or newer.</p>
+      </div>
+
+      <div class="log" role="img" aria-label="An example of Group Password Reset: an Administrator role reset finished with a few accounts reset and sent a reset link, and one excluded account skipped.">
+        <div class="l-bar" aria-hidden="true"><i></i><i></i><i></i><span>Tools › Group Password Reset</span></div>
+        <div class="l-in" aria-hidden="true">
+          <div class="l-head"><img src="img/heart-256.png" alt="" width="48" height="48"><div><small>THE HACK REPAIR GUY'S</small><b>Group Password Reset</b></div></div>
+          <div class="l-status"><div><b>9</b>Reset</div><div><b>1</b>Skipped</div><div><b>0</b>Failed</div></div><div class="l-list"><div class="l-row"><span>editor_amy</span><span class="chip g">Reset link sent</span></div><div class="l-row"><span>shop_manager</span><span class="chip g">Reset link sent</span></div><div class="l-row"><span>contractor_lee</span><span class="chip g">Reset link sent</span></div><div class="l-row"><span>jim (you)</span><span class="chip a">Skipped</span></div><div class="l-row"><span>support_sam</span><span class="chip g">Reset link sent</span></div><div class="l-row"><span>author_priya</span><span class="chip g">Reset link sent</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main>
+  <div class="wrap">
+    <section id="why" aria-labelledby="why-h">
+      <h2 id="why-h">Some days, one password isn't enough.</h2>
+      <p class="sub">Resetting accounts one at a time is slow, and it is easy to miss someone. This does a whole group in one run and shows you exactly what happened.</p>
+      <ul class="doors">
+        <li><div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></div><h3>After a security problem</h3><p>Once the site is clean, make every old password useless before anyone logs in again.</p></li><li><div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.5 3-6 6.5-6s6.5 2.5 6.5 6"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8M18 14.2c2.2.6 3.5 2.6 3.5 5.8"/></svg></div><h3>When staff change</h3><p>Reset the roles that a former employee or contractor could have used.</p></li><li><div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M16 7l3 3"/></svg></div><h3>Handing a site over</h3><p>Start a new owner or client on fresh passwords, with a reset link in their inbox.</p></li><li><div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><h3>Routine hygiene</h3><p>Rotate passwords for one role on your own schedule, with a record that you did.</p></li>
+      </ul>
+    </section>
+
+    <section id="features" aria-labelledby="features-h">
+      <h2 id="features-h">What it does</h2>
+      <p class="sub">Open <strong>Tools › Group Password Reset</strong>. Pick who, say who to skip, confirm, and go.</p>
+      <ul class="checks">
+        <li>Reset all users, a single role, or administrators except you</li>
+        <li>Skip the usernames you list, and remember them between runs</li>
+        <li>Email each person a secure reset link, never a raw password</li>
+        <li>Or run in reset-only mode and tell people another way</li>
+        <li>Works in batches of 20, with or without JavaScript</li>
+        <li>Shows the latest 20 results, with counts for the whole run</li>
+        <li>Email your administrators a branded summary afterward</li>
+        <li>Writes an audit log of when resets started and finished</li>
+        <li>Subjects carry the site and plugin, like <code>[example.com] [Group Password Reset]</code></li>
+        <li>Updates arrive on the normal Plugins screen</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="f1-h">
+      <h2 id="f1-h">Control what happens, then see what happened</h2>
+      <p class="sub">Nothing is selected by default, and every run ends with a clear result.</p>
+      <div class="feats"><article class="feat"><div class="demo" aria-hidden="true"><div class="card"><b>Accounts to reset</b><div class="ta">Administrator (excluding current user)</div><div class="ok">✓ Your own account is skipped</div></div></div><div class="txt"><h3>Choose who, skip who you like</h3><p>Pick all users, one role, or administrators except yourself. List usernames to exclude and they stay excluded on later runs.</p></div></article><article class="feat"><div class="demo" aria-hidden="true"><div class="mail"><div class="subj">[example.com] [Group Password Reset] Password Reset</div><div class="bd">Your password was reset by the site administrator. Choose a new one with the secure link below.</div></div></div><div class="txt"><h3>Reset links, not passwords</h3><p>People get a secure link to choose their own new password. Raw passwords are never emailed.</p></div></article><article class="feat"><div class="demo" aria-hidden="true"><div class="card"><b>Done! Password reset complete.</b><div class="ta">9 reset · 1 skipped · 0 failed</div><div class="ok">✓ Latest 20 results shown</div></div></div><div class="txt"><h3>Clear results, every time</h3><p>Counts cover the whole run, the latest results show who was reset or skipped, and failures are called out.</p></div></article></div>
+    </section>
+
+    <section aria-labelledby="f2-h">
+      <h2 id="f2-h">Keep your team in the loop</h2>
+      <p class="sub">Optional, and only after you have looked at the result.</p>
+      <div class="feats"><article class="feat"><div class="demo" aria-hidden="true"><div class="mail"><div class="subj">[example.com] [Group Password Reset] Password Reset Summary</div><div class="bd">Scope: Administrator · Reset 9 · Skipped 1 · Failed 0</div></div></div><div class="txt"><h3>A summary for your administrators</h3><p>Choose recipients, add a note, preview it and send. The summary leaves out passwords, reset links and the list of accounts.</p></div></article><article class="feat"><div class="demo" aria-hidden="true"><div class="card"><b>Notification mode</b><div class="ta">Reset only (no email)</div><div class="ok">✓ Tell people another way</div></div></div><div class="txt"><h3>Reset only, if you prefer</h3><p>Skip the emails entirely when you want to tell people yourself, by phone, chat or in person.</p></div></article><article class="feat"><div class="demo" aria-hidden="true"><div class="card"><b>Audit log</b><div class="ta">Reset started · Reset completed</div><div class="ok">✓ No usernames or addresses stored</div></div></div><div class="txt"><h3>A record that stays private</h3><p>Starts and finishes are logged, without storing the usernames or email addresses of the accounts you reset.</p></div></article></div>
+    </section>
+
+    
+  </div>
+
+  <div class="dark trust" aria-labelledby="trust-h">
+    <div class="wrap grid">
+      <img src="img/heart-256.png" alt="" width="120" height="120" loading="lazy">
+      <div>
+        <h2 id="trust-h">Careful with other people’s accounts.</h2>
+        <ul class="pills"><li>Reset links, not passwords</li><li>Administrators only</li><li>Audit log, no usernames</li><li>Updates from GitHub</li></ul>
+        <p>The plugin resets passwords first and then tries to send the emails. A mail failure never undoes a reset, so use reset-only mode if you plan to tell people another way. Resetting invalidates current passwords, so the plugin asks you to confirm first.</p>
+        <p class="small">The only outside requests are update checks against this project’s GitHub releases. It is not a security scanner or a login limiter. If you think your site has been hacked, <a href="https://hackrepair.com/">The Hack Repair Guy</a> can help.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <section id="install" aria-labelledby="install-h">
+      <h2 id="install-h">Install it in a minute</h2>
+      <ol class="steps">
+        <li><strong>Download the zip</strong> from the button below.</li>
+        <li>In WordPress, open <strong>Plugins › Add New › Upload Plugin</strong>, choose the zip and activate it.</li>
+        <li>Open <strong>Tools › Group Password Reset</strong> and choose <strong>Accounts to reset</strong>. Add any usernames to exclude.</li>
+        <li>Choose whether to email reset links, tick the confirmation, and select <strong>Reset Passwords</strong>.</li>
+      </ol>
+      <div class="below" style="margin-top:0">
+        <a class="btn" data-download href="https://github.com/hackrepair/group-password-reset/releases/latest"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11m0 0-5-5m5 5 5-5M5 20h14"/></svg><span data-download-label>Download Group Password Reset</span></a>
+        <p class="version" data-version>Free, and later updates arrive on the normal Plugins screen.</p>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <div>
+      <p><strong>Made by The Hack Repair Guy.</strong></p>
+      <p class="small">Free software, released under the GPL. Questions and ideas are welcome in GitHub Discussions. If it helped, you can <a href="https://hackrepair.com/donations/buy-jim-a-coffee">buy Jim a coffee</a>.</p>
+    </div>
+    <nav aria-label="Project links"><a href="https://github.com/hackrepair/group-password-reset">GitHub</a><a href="https://github.com/hackrepair/group-password-reset/releases">Releases</a><a href="https://github.com/hackrepair/group-password-reset/discussions">Support</a><a href="https://hackrepair.com/">hackrepair.com</a></nav>
+  </div>
+</footer>
+
+<script>
+(function () {
+  // Point every download button at the newest zip. If the lookup fails, the
+  // buttons keep going to the latest release page.
+  fetch('https://api.github.com/repos/hackrepair/group-password-reset/releases/latest', { headers: { Accept: 'application/vnd.github+json' } }).then(function (r) {
+    return r.ok ? r.json() : null;
+  }).then(function (rel) {
+    if (!rel || !rel.assets) { return; }
+    var zip = rel.assets.filter(function (a) { return /^group-password-reset(\.\d+\.\d+\.\d+)?\.zip$/.test(a.name); })[0];
+    if (!zip) { return; }
+    var version = String(rel.tag_name || '').replace(/^v/, '');
+    document.querySelectorAll('[data-download]').forEach(function (a) { a.href = zip.browser_download_url; });
+    document.querySelectorAll('[data-download-label]').forEach(function (s) { s.textContent = 'Download Group Password Reset ' + version; });
+    var when = rel.published_at ? new Date(rel.published_at).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' }) : '';
+    document.querySelectorAll('[data-version]').forEach(function (p) {
+      p.textContent = 'Latest version ' + version + (when ? ', released ' + when : '') + '. Updates arrive inside WordPress.';
+    });
+  }).catch(function () {});
+})();
+</script>
+</body>
+</html>
