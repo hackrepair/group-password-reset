@@ -15,7 +15,7 @@ Bulk reset WordPress passwords by scope, skip excluded usernames, and send secur
 
 == Description ==
 
-The native View Details window includes an Other THRG Plugins guide to six other tools from The Hack Repair Guy.
+The native View Details window includes an Other THRG Plugins guide to seven other tools from The Hack Repair Guy.
 
 The Hack Repair Guy's Group Password Reset is a native WordPress admin tool for administrators who need to invalidate passwords at scale without manually editing each account.
 
