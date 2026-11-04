@@ -6,7 +6,7 @@ Donate link: https://hackrepair.com/donations/buy-jim-a-coffee
 Tags: password reset, bulk actions, user management, security
 Requires at least: 6.9.4
 Tested up to: 7.1.3
-Stable tag: 3.6.2
+Stable tag: 3.6.3
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -139,6 +139,9 @@ GitHub may be unreachable or may limit requests from the hosting server’s IP a
 No. JavaScript enables the batched in-page progress UI, but the main reset flow also works through a non-JavaScript fallback.
 
 == Changelog ==
+
+= 3.6.3 =
+* The Other THRG Plugins tab in View Details now lists Bunker and Stickies and ends with a donation note.
 
 = 3.6.2 =
 * Expanded Other THRG Plugins in View Details to show five companion tools, excluding the current plugin.

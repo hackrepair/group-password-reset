@@ -123,3 +123,7 @@ Added the common SECURITY.md policy, repository-specific private reporting desti
 ## Secret protection and dependency coverage — October 26, 2026
 
 Enabled secret scanning, push protection and Dependabot alerts; added the trusted-main dependency inventory workflow and live read-only protection verifier. This is repository tooling, with no plugin release/SVN/runtime change. Bundled Parsedown declares 1.6.0, with upstream advisories requiring source-aware review. See `docs/repository-protection-2026-10-26.md` and `docs/dependency-coverage.md` for evidence and limits.
+
+## 3.6.3 release - November 3, 2026
+
+Patch release for the Other THRG Plugins tab: it lists Bunker and Stickies and ends with a donation note. Version metadata, readme, README, MAINTAINING and release notes are aligned at 3.6.3. No change to the reset workflow or saved settings.
